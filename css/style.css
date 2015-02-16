@@ -1,0 +1,117 @@
+.hidden {
+    display: none;
+}
+
+body {
+    background-color: #efefef;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+}
+
+.container-fluid {
+    margin-top: 100px;
+}
+
+/**** nav bar ****/
+.navbar {
+    background: linear-gradient(105deg, #f96821, #fb4223);
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+    height: 70px;
+}
+
+.icon-bar {
+    background: white;
+}
+
+.navbar-toggle {
+    height: 70px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.navbar-brand, .navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {
+    background-color: white;
+    height: 70px;
+    padding: 24px;
+}
+
+.navbar-brand > img {
+    line-height: 70px;
+}
+
+.navbar-right {
+    margin-right: 15px;
+}
+
+.navbar-nav > li {
+    margin-top: 22px;
+}
+
+.navbar-right > li > a {
+    padding: 2px 15px;
+    color: white;
+}
+
+.navbar-right > li > a:hover {
+    background-color: transparent;
+}
+
+#login:hover, #request-link:hover {
+    border-bottom: 1px solid rgba(255, 255, 255, .3); 
+}
+
+#login, #request-link {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: transparent;
+}
+
+
+#signup, #signup:active, #signup:focus {
+    transition: background ease .3s;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 16px;
+}
+
+#signup:hover {
+    transition: background ease .3s;
+    border: 2px solid white;
+    background-color: #fff;
+    color: #fb4223;
+    border-radius: 16px;
+}
+
+@media (max-width: 767px) {
+    .navbar-collapse {
+        background: #fff;
+        color: #000;
+        margin-top: 0;
+        padding-top: 0;
+    }
+    
+    .collapse .navbar-right > li > a {
+        color: #666;
+    }
+}
+
+/**** End of nav bar ****/
+
+/**** Request Form ****/
+
+#request-form {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 100px);
+    width: 300px;
+    height: 200px;
+    border: none;
+    background: white;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .25);
+    z-index: 10;
+}
+/**** End of Request Form ****/
+
+
