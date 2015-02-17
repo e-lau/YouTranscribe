@@ -15,3 +15,11 @@ $(function() {
         $('#requests-container').append('<img src="' + imgURL + '">');
     });
 });
+
+function signinCallback(authResult) {
+  if (authResult['status']['signed_in']) {
+    console.log('Signed In!');
+  } else {
+    console.log('Sign-in state: ' + authResult['error']);
+  }
+}

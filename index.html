@@ -24,8 +24,17 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a id="request-link" href="#">Request A Video Transcription</a></li>
-                    <li><a id="login" href="#">Log In</a></li>
-                    <li><a id="signup" href="#">Sign Up</a></li>
+                    <!--<li><a id="login" href="#">Log In</a></li>-->
+                    <li><span id="signinButton">
+                            <span class="g-signin"
+                                data-callback="signinCallback"
+                                data-clientid="AIzaSyAW5Ku2PFGzpcTdvaX1P1ItTfUK8aCCfR4"
+                                data-cookiepolicy="single_host_origin"
+                                data-scope="https://www.googleapis.com/auth/plus.login">
+                            </span>
+                        </span>
+                    </li>
+                    <!--<li><a id="signup" href="#">Sign Up</a></li>-->
                 </ul>
             </div><!--/.nav-collapse -->
         </nav> <!--/ .navbar -->
@@ -49,5 +58,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/yt.js"></script>
+        <script src="https://apis.google.com/js/client:platform.js"></script>
     </body>
 </html>
