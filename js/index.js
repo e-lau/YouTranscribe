@@ -20,7 +20,7 @@ $(function() {
         }
         
         var imgURL = yt.getYouTubeThumbnail(yt.parseID($('#youtube-url').val()));
-        // addRequest();
+        addRequest();
         parse.newRequest(userId, $('#youtube-url').val());
     });
     
@@ -105,16 +105,16 @@ function signinCallback(authResult) {
 
             // Check for first time user
             // if (!parse.getUser(userId)) {
-                parse.saveUser(userId);
+                // parse.saveUser(userId);
             // }
             
             // Loads Requests from Parse and Displays them            
-            var videos = parse.getRequests(userId);
-            while (videos.length) {
-                var request = videos.pop();
-                $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + request.get("link") + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
-                console.log(userId + ": " + request);
-            }
+            // var videos = parse.getRequests(userId);
+            // while (videos.length) {
+            //     var request = videos.pop();
+            //     $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + request.get("link") + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
+            //     console.log(userId + ": " + request);
+            // }
         }
     });
     } 
