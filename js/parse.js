@@ -8,11 +8,12 @@ var initParse = function() {
 }
 
 var parse = (function() {
-	return {
-		/* Waiting for gplus to be implemented
-		var saveUser = function(username, email) {
+	return {		
+		saveUser: function(username, email) {
 			var User = Parse.Object.extend('Client');
 			var user = new User();
+
+			email = 'fakeEmail@fake.com'; // Hardcoded.
 			user.save(
 				{'username': username,
 				 'email'   : email,
@@ -25,29 +26,28 @@ var parse = (function() {
 					}
 				}
 			);
-		}
+		},
 
-		var getUser = function(email) {
+		getUser: function(username) {
 			var User = Parse.Object.extend('Client');
 			var user = new User();
 			user.find({
 				success: function(results) {
 					for (var i = 0; i < results.length; i++) {
-						if (results[i].get('email') === email) {
+						if (results[i].get('username') === username) {
 							return results[i];
 						}
 					}
 				}
 			});
-		}
-		*/
+		},		
 
-		newRequest: function(url) {
-			var user = 'URequestor01' //hardcoded a username
+		newRequest: function(user, url) {
 			var link = url;
 
 			var Request = Parse.Object.extend('Request');
 			var req = new Request();
+
 			req.save(
 				{'link': link, 'user': user},
 				{success: function(results) {
@@ -57,9 +57,7 @@ var parse = (function() {
 		},
 
 		// returns an array of requests from user
-		getRequest: function(user) {
-			user = 'URequestor01'; //hardcoded a username
-
+		getRequests: function(user) {
 			// Gets all request from user.
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
