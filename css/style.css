@@ -64,6 +64,14 @@ body {
     background-color: transparent;
 }
 
+#welcomeText {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold; 
+}
+
 
 #signup, #signup:active, #signup:focus {
     transition: background ease .3s;
