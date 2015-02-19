@@ -15,7 +15,7 @@ var yt = (function() {
         },
 
         submitRequest: function() {
-            //When the request formm is submitted this function is called 
+            //When the request form is submitted this function is called 
         },
 
         /*  Uses a regex to get the video id from a youtube url.
