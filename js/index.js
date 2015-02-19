@@ -21,7 +21,7 @@ $(function() {
         
         var imgURL = yt.getYouTubeThumbnail(yt.parseID($('#youtube-url').val()));
         addRequest();
-        parse.newRequest(userId, $('#youtube-url').val());
+        // parse.newRequest(userId, $('#youtube-url').val());
     });
     
     $('#request-form-close').click(function() {
