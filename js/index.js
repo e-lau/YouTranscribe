@@ -94,7 +94,7 @@ function signinCallback(authResult) {
             request.done(function(msg) {
                 console.log(msg);
                 $('#navbar ul').append("<li id='displayName'><a href='#accountPage'>" + msg.displayName + "</a></li>");
-                $('#navbar ul').append("<li id='logoutButton'><a href='#'>Logout</a></li>");
+                $('#navbar ul').append("<li id='logoutButton'><a href=''>Logout</a></li>");
                 $('#logoutButton').click(function(event) {
                     event.preventDefault();
                     disconnectUser(authResult.access_token);
