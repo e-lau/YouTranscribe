@@ -104,9 +104,9 @@ function signinCallback(authResult) {
             });
 
             // Check for first time user
-            if (!parse.getUser(userId)) {
+            // if (!parse.getUser(userId)) {
                 parse.saveUser(userId);
-            }
+            // }
             
             // Loads Requests from Parse and Displays them            
             var videos = parse.getRequests(userId);
