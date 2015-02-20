@@ -81,8 +81,8 @@ var parse = (function() {
 				success: function(results) {
 					for (var i = 0; i < results.length; i++) {
 						if (results[i].get('user') === user) {
-							console.log('link: ' + results[i]);
-						    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + results[i].get("link") + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
+							var imgURL = yt.getYouTubeThumbnail(yt.parseID(results[i].get('link')));
+						    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
 						}
 					}
 				}
