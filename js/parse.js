@@ -1,3 +1,15 @@
+// http://css-tricks.com/snippets/javascript/get-url-variables/
+function getQueryVariable(variable) {
+   var query = window.location.search.substring(1);
+   var vars = query.split("&");
+   for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+   }
+   return(false);
+}
+
+
 // Initializes Parse
 // Keys are under Peter's account currently.
 var initParse = function() {
@@ -72,7 +84,7 @@ var parse = (function() {
 
 			// Append Video
 			var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));
-	        $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
+	        $('#requests-container').append('<a class="request" href=transcribe.html?youtubeid=' + link.split('=')[1] + '><img class="video-thumb" src=' + imgURL
 	         + '><div class="video-title">Description Here</div><div class="reward-amount">$' + reward
 	         + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 		},
