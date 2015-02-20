@@ -51,22 +51,30 @@ var parse = (function() {
 			});
 		},		
 
-		newRequest: function(user, url) {
+		newRequest: function(user, url, reward) {
 			// Hardcoded. 
 			user = 'fakeUser01';						
 			var link = url;
-			if (!link) link = 'http://img.youtube.com/vi/jYbx_PV3318/mqdefault.jpg';
 
+			// Defaults values
+			if (!$('#youtube-url').val()) link = 'https://www.youtube.com/watch?v=jYbx_PV3318';
+			if (!reward) reward = 5;
 
+			// Saves the Video
 			var Request = Parse.Object.extend('Request');
 			var req = new Request();
-
 			req.save(
-				{'link': link, 'user': user},
+				{'link': link, 'user': user, 'reward': reward},
 				{success: function(results) {
 					console.log('request has been saved')
 				}}
 			);
+
+			// Append Video
+			var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));
+	        $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
+	         + '><div class="video-title">Description Here</div><div class="reward-amount">$' + reward
+	         + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 		},
 
 		// returns an array of requests from user
@@ -82,7 +90,9 @@ var parse = (function() {
 					for (var i = 0; i < results.length; i++) {
 						if (results[i].get('user') === user) {
 							var imgURL = yt.getYouTubeThumbnail(yt.parseID(results[i].get('link')));
-						    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
+						    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
+						     + '><div class="video-title">Description Goes Here</div><div class="reward-amount">$' +
+						     results[i].get('reward') + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 						}
 					}
 				}
