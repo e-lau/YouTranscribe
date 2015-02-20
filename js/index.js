@@ -58,7 +58,7 @@ function disconnectUser(access_token) {
     });
 
     // Clears the screen
-    $('#requests-container').remove();
+    $('#requests-container').children().remove();
 }
 
 function signinCallback(authResult) {
