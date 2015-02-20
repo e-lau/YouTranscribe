@@ -77,19 +77,16 @@ var parse = (function() {
 			// Gets all request from user.
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
-			var userRequests = [];
 			req.find({
 				success: function(results) {
 					for (var i = 0; i < results.length; i++) {
 						if (results[i].get('user') === user) {
 							console.log('link: ' + results[i]);
-							userRequests.push(results[i]);
+						    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + request.get("link") + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
 						}
 					}
 				}
 			});
-
-			return userRequests; 
 		}
 	}
 })();
