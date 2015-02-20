@@ -6,7 +6,8 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="css/common.css">
         <link type="text/css" rel="stylesheet" href="css/transcribe.css">
-        <title>YouTranscribe</title>
+
+        <title>YouTranscribe - Transcribe</title>
     </head>
     <body>
         <!-- Fixed navbar -->
@@ -48,9 +49,15 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row">
+            <div id="ytdiv">
+                <h1 id='title'>Youtube title</h1>
+                <h2 id='duration'>00:00</h2>
+
+                <div id="ytplayer"></div>
+                <p id="description"></p>
 
             </div>
+            <div id="textboxes"></div>    
         </div>
         <!-- JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -59,6 +66,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/yt.js"></script>
         <script type="text/javascript" src="js/parse.js"></script>
+        <script type="text/javascript" src="js/transcribe.js"></script>
         <script src="https://apis.google.com/js/client:platform.js"></script>
     </body>
 </html>
