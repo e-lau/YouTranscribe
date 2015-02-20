@@ -1,4 +1,4 @@
-var userId = "";
+var userId = "fakeUser01";
 var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
 
 $(function() {
@@ -21,7 +21,7 @@ $(function() {
         
         var imgURL = yt.getYouTubeThumbnail(yt.parseID($('#youtube-url').val()));
         addRequest();
-        // parse.newRequest(userId, $('#youtube-url').val());
+        parse.newRequest(userId, $('#youtube-url').val());
     });
     
     $('#request-form-close').click(function() {
@@ -109,12 +109,12 @@ function signinCallback(authResult) {
             // }
             
             // Loads Requests from Parse and Displays them            
-            // var videos = parse.getRequests(userId);
-            // while (videos.length) {
-            //     var request = videos.pop();
-            //     $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + request.get("link") + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
-            //     console.log(userId + ": " + request);
-            // }
+            var videos = parse.getRequests(userId);
+            while (videos.length) {
+                var request = videos.pop();
+                $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + request.get("link") + '><div class="video-title">Zach LaVines 2015 Sprint Slam Dunk Contest Performance</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
+                console.log(userId + ": " + request);
+            }
         }
     });
     } 

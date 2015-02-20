@@ -8,42 +8,55 @@ var initParse = function() {
 }
 
 var parse = (function() {
+
 	return {		
 		saveUser: function(username, email) {
-			var User = Parse.Object.extend('Client');
-			var user = new User();
+			var UserObj = Parse.Object.extend('Client');
+			var userObj = new UserObj();
 
 			email = 'fakeEmail@fake.com'; // Hardcoded.
-			user.save(
+			userObj.save(
 				{'username': username,
 				 'email'   : email,
 				 'balance' : 0,
 				 'request' : {}
 				}, 
 				{
-					success: function() {
+					success: function(results) {
 						console.log('saved user successfully');	
+					},
+					error: function(error) {
+						console.log('unable to save user');
 					}
 				}
 			);
 		},
 
 		getUser: function(username) {
-			var User = Parse.Object.extend('Client');
-			var user = new User();
-			user.find({
+			var Client = Parse.Object.extend('Client');
+			var client = new Parse.Query(Client);
+
+			client.find({
 				success: function(results) {
 					for (var i = 0; i < results.length; i++) {
-						if (results[i].get('username') === username) {
-							return results[i];
-						}
+						if (results[i].get('username') === username) {	
+							results[i].get('username');
+						}					
 					}
+				},
+				error: function(error) {
+					console.log('error: getUser()');
+					return null;
 				}
 			});
 		},		
 
 		newRequest: function(user, url) {
+			// Hardcoded. 
+			user = 'fakeUser01';						
 			var link = url;
+			if (!link) link = 'http://img.youtube.com/vi/jYbx_PV3318/mqdefault.jpg';
+
 
 			var Request = Parse.Object.extend('Request');
 			var req = new Request();
@@ -58,6 +71,9 @@ var parse = (function() {
 
 		// returns an array of requests from user
 		getRequests: function(user) {
+			// Hardcoded. 
+			user = 'fakeUser01';
+
 			// Gets all request from user.
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
@@ -66,6 +82,7 @@ var parse = (function() {
 				success: function(results) {
 					for (var i = 0; i < results.length; i++) {
 						if (results[i].get('user') === user) {
+							console.log('link: ' + results[i]);
 							userRequests.push(results[i]);
 						}
 					}
