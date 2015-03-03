@@ -1,4 +1,4 @@
-var userId = "fakeUser01";
+var userId = "";
 var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
 
 $(function() {
@@ -19,8 +19,6 @@ $(function() {
             $('#request-form').addClass('hidden');
         }
 
-        // addRequest();        
-        var imgURL = yt.getYouTubeThumbnail(yt.parseID($('#youtube-url').val()));
         parse.newRequest(userId, $('#youtube-url').val(), $('#request-reward').val());
     });
     
@@ -33,7 +31,6 @@ $(function() {
 
 
 // Google OAuth
-
 function disconnectUser(access_token) {
     console.log("Disconnecting");
     var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
@@ -106,10 +103,8 @@ function signinCallback(authResult) {
                 });
             });
 
-            // Check for first time user
-            // if (!parse.getUser(userId)) {
-                // parse.saveUser(userId);
-            // }
+            // Load User
+            parse.getUser("fakeUser01");
             
             // Loads Requests from Parse and Displays them            
             parse.getRequests(userId);
