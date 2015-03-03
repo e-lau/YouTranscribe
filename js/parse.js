@@ -42,6 +42,7 @@ var parse = (function() {
 			// Defaults values
 			if (!$('#youtube-url').val()) link = 'https://www.youtube.com/watch?v=jYbx_PV3318';
 			if (!reward) reward = 5;
+			console.log("Reward: " + reward);
 
 			// Saves the Video
 			var Request = Parse.Object.extend('Request');

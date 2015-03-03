@@ -19,7 +19,8 @@ $(function() {
             $('#request-form').addClass('hidden');
         }
 
-        parse.newRequest(userId, $('#youtube-url').val(), $('#request-reward').val());
+        var reward = $('#request-reward') ? $('#request-reward').val() : 5;
+        parse.newRequest(userId, $('#youtube-url').val(), reward);
     });
     
     $('#request-form-close').click(function() {
