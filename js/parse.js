@@ -36,21 +36,17 @@ var parse = (function() {
 
 	return {
 		newRequest: function(user, url, reward) {			
-			// user = 'fakeUser01'; // Hardcoded. 						
 			var link = url;
 
-			// Defaults values
-			if (!$('#youtube-url').val()) link = 'https://www.youtube.com/watch?v=jYbx_PV3318';
-			if (!reward) reward = 5;
-			console.log("Reward: " + reward);
+			console.log('link: ' + link + 'user: ' + user + 'Reward: ' + reward);
 
 			// Saves the Video
 			var Request = Parse.Object.extend('Request');
 			var req = new Request();
 			req.save({'link': link, 'user': user, 'reward': reward, 'status': 'new'})
-				.then(function(results) {
-					console.log('request has been saved')
-				});
+				.then(function(results) {console.log('request has been saved')},
+				      function(error) {console.log("Error in saving request!");}
+				);
 
 			// Append Video
 			var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));

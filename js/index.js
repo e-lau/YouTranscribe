@@ -19,8 +19,9 @@ $(function() {
             $('#request-form').addClass('hidden');
         }
 
-        var reward = $('#request-reward') ? $('#request-reward').val() : 5;
-        parse.newRequest(userId, $('#youtube-url').val(), reward);
+        var ytUrl  = $('#youtube-url').val() ? $('#youtube-url').val() : 'https://www.youtube.com/watch?v=jYbx_PV3318';
+        var reward = $('#request-reward').val() ? $('#request-reward').val() : -1;
+        parse.newRequest(userId, ytUrl, reward);
     });
     
     $('#request-form-close').click(function() {
