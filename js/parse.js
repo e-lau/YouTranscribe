@@ -19,25 +19,22 @@ var initParse = function() {
 	Parse.initialize(keyApp, keyJs);	
 }
 
+var saveUser = function(username) {
+	var UserObj = Parse.Object.extend('Client');
+	var userObj = new UserObj();
+
+	userObj.save(
+		{'username': username,
+		 'balance' : 0,
+		 'request' : {}
+		}).then(function() { //success
+			console.log('saved user successfully');	
+		});			
+}
+
 var parse = (function() {
 
-	return {		
-		saveUser: function(username, email) {
-			var UserObj = Parse.Object.extend('Client');
-			var userObj = new UserObj();
-
-			email = 'fakeEmail@fake.com'; // Hardcoded.
-			userObj.save(
-				{'username': username,
-				 'email'   : email,
-				 'balance' : 0,
-				 'request' : {}
-				}).then(function() { //success
-					console.log('saved user successfully');	
-				});
-			
-		},		
-
+	return {
 		newRequest: function(user, url, reward) {			
 			// user = 'fakeUser01'; // Hardcoded. 						
 			var link = url;
@@ -81,17 +78,18 @@ var parse = (function() {
 
 		},
 
-		getUser: function(username) {
+		loadUser: function(username) {
 			var Client = Parse.Object.extend('Client');
 			var client = new Parse.Query(Client);
-			console.log('hi');
 
 			client.find().then(function(results) {
 				// Query for user
 				for (var i = 0; i < results.length; i++) {
 					if (results[i].get('username') === username) return results[i].get('username');	
-					console.log('username result: ' + results[i].get('username'));											
 				}
+
+				saveUser(username);
+
 			}).then(function(result) {
 				var Request = Parse.Object.extend('Request');
 				var req = new Parse.Query(Request);
@@ -106,7 +104,7 @@ var parse = (function() {
 						}
 					}
 				});
-			});			
+			});		
 		}
 	}
 })();

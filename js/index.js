@@ -104,10 +104,7 @@ function signinCallback(authResult) {
             });
 
             // Load User
-            parse.getUser("fakeUser01");
-            
-            // Loads Requests from Parse and Displays them            
-            parse.getRequests(userId);
+            parse.loadUser(userId);
         }
     });
     } 
