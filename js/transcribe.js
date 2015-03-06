@@ -51,7 +51,7 @@ console.log(videoID);
 $(document).ready(function() {
     $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc', function(result) {
         $('#title').html(result.data.title);
-        $('#duration').html(secformat(result.data.duration));
+        $('#duration').html("Duration: " + secformat(result.data.duration));
         $('#description').html(result.data.description);
         addTextboxes(result.data.duration); 
     }); 
@@ -78,4 +78,3 @@ $(document).ready(function() {
         });
     }
 
-          
