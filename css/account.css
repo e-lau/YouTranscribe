@@ -1,0 +1,93 @@
+.tab-links {
+    font-size: 20px;
+    font-weight: 100;
+    margin-top: 50px;
+    line-height: 40px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+}
+
+.tab-links > a {
+    display: block;
+    color: #919191;
+    text-decoration: none;
+    cursor:pointer;
+}
+
+.tab-links > a:hover {
+    font-weight: 400;
+}
+
+.tab-links > .active {
+    font-weight: 600;
+    color: #F96821;
+}
+
+.tab-links > .active:hover {
+    font-weight: 600;
+}
+
+.tab-details {
+    min-height: 600px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+/**** Form Styling ****/
+
+.tab-details {
+    padding-top: 30px;
+}
+.form-group > label {
+    display: block;
+    color: #555;
+}
+
+.form-group > input {
+    width: 300px;
+    font-size: 18px;
+    line-height: 40px;
+    height: 40px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #c1c1c1;
+    background-color: #f9f9f9;
+    padding: 8px;
+}
+
+.form-group {
+    padding-left: 30px;
+    padding-top: 10px;
+}
+
+.form-group select {
+    background-color: #f9f9f9;
+    border: 1px solid #c1c1c1;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 18px;
+    color: #888;
+    outline:none;
+}
+
+.form-group > button {
+    width: 300px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    background-color: #A2DC6B;
+    border: 1px solid #72af34;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+.form-group > button:active {
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .3);
+}
+
+

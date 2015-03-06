@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="css/common.css">
-        <link type="text/css" rel="stylesheet" href="css/transcribe.css">
+        <link type="text/css" rel="stylesheet" href="css/history.css">
 
         <title>YouTranscribe - Transcribe</title>
     </head>
@@ -26,7 +26,6 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a id="request-link" href="#">Request A Video Transcription</a></li>
-                    <li><a id="request-link" href="account.html">Account Settings</a></li>
                     <!--<li><a id="login" href="#">Log In</a></li>-->
                     <li><span id="signinButton">
                             <span class="g-signin"
@@ -51,34 +50,23 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-7">
-                    <div id="ytplayer"></div>
-                    <div id="about-video">
-                        <div id="title"></div>
-                        <div id="group">
-                            <div id="duration">Duration: 12:33</div>
-                            <div id="reward">
-                                <span>Reward: </span>
-                                <span id="amount">$12</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="description">Legendary comedian, Chris Tucker made an appearance at Sway in the Morning. After Sway and Tucker reminisced on times together, Chris went on discuss his up coming shows. Chris performed two shows in New Jersey during the Super Bowl. He also spoke about what's sexy about women and football. Additionally, the funny man discussed working with Jackie Chan and Charlie Sheen. Tucker went on to reveal whether there will be another "Friday" movie with him and Ice Cube.
-</div>
-                    </div>
-                    <div>
-                        <button id="submit-transcription">Submit Transcription</button>
+                <div class="col-md-2">
+                    <div class="tab-links">
+                        <a>Account</a>
+                        <a>Credit Cards</a>
+                        <a class="active">History</a>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <div id="textboxes"></div>
+                <div class="col-md-10">
+                    <div class="tab-details">
+                    </div>
                 </div>
             </div>
         </div>
         <!-- JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src='https://www.parsecdn.com/js/parse-1.3.4.min.js'></script>        
+        <script src='https://www.parsecdn.com/js/parse-1.3.4.min.js'></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/yt.js"></script>
         <script type="text/javascript" src="js/parse.js"></script>
