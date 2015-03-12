@@ -50,6 +50,7 @@ var parse = (function() {
 					if (results[i].get('user') == g_username) {
 						var link = results[i].get('link');
 						var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));
+						var reward = reqResults[i].get('reward');
 	        			$('.tab-details').append('<a class="request" href=transcribe.html?youtubeid=' + link.split('=')[1] + '><img class="video-thumb" src=' + imgURL
 	         			+ '><div class="video-title">Description Here</div><div class="reward-amount">$' + reward
 	         			+ '<span>REWARD FOR TRANSCRIBING</span></div></a>');
