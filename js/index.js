@@ -2,12 +2,6 @@ var userId = "";
 var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
 
 $(function() {
-    
-    // Hardcoded until we store and retrieve this data with parse
-    // var addRequest = function(title, thumbURL, rewardAmount) {
-    //     $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src="http://img.youtube.com/vi/jYbx_PV3318/mqdefault.jpg"><div class="video-title">Description Here</div><div class="reward-amount">$8<span>REWARD FOR TRANSCRIBING</span></div></a>');
-    // }
-    
     $('#request-link').click(function() {
         if ($('#request-form').hasClass('hidden')) {
             $('#request-form').removeClass('hidden');
@@ -106,6 +100,8 @@ function signinCallback(authResult) {
             });
 
             // Load User
+            localStorage.setItem('username', username);
+            console.log('stored user: ' + username + ' to local storage.');
             parse.loadUser(userId);
         }
     });

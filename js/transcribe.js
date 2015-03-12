@@ -11,8 +11,6 @@ function getQueryVariable(variable) {
    return(false);
 }
 
-
-
 function secformat(sec) {
     var fm = [
         Math.floor(sec/60) % 60, // Minutes
@@ -48,33 +46,42 @@ function addTextboxes(duration) {
 var videoID = getQueryVariable("youtubeid");
 console.log(videoID);
 
+$(function() {
+    $('#submit-transcription').click(function() {
+        username = 'fakeuser'; //localStorage.getItem('username');
+        console.log('Storing transcript under: ' + username + " | " + player.videoID);
+        parse.storeTranscript(username, videoID);
+    });
+});
+
 $(document).ready(function() {
     $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc', function(result) {
         $('#title').html(result.data.title);
         $('#duration').html("Duration: " + secformat(result.data.duration));
         $('#description').html(result.data.description);
-        addTextboxes(result.data.duration); 
+        addTextboxes(result.data.duration);
+        // loadTranscript
     }); 
 });
 
 // Load the IFrame Player API code asynchronously.
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/player_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // Replace the 'ytplayer' element with an <iframe> and
-    // YouTube player after the API code downloads.
-    var player;
-    function onYouTubePlayerAPIReady() {
-        player = new YT.Player('ytplayer', {
-            height: '360',
-            width: '620',
-            videoId: videoID,
-            playerVars: {
-                controls: 1,
-                showinfo: 1
-            }
-        });
-    }
+// Replace the 'ytplayer' element with an <iframe> and
+// YouTube player after the API code downloads.
+var player;
+function onYouTubePlayerAPIReady() {
+    player = new YT.Player('ytplayer', {
+        height: '360',
+        width: '620',
+        videoId: videoID,
+        playerVars: {
+            controls: 1,
+            showinfo: 1
+        }
+    });
+}
 
