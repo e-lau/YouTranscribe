@@ -151,11 +151,13 @@ var parse = (function() {
 
 			var Transcript = Parse.Object.extend('Transcript');
 			var transcript = new Parse.Query(Transcript);
+			console.log('finding transcript');
 			transcript.find().then(function(transResult) {
 				// Query for user's existing list of transcripts
 				for (var i = 0; i < transResult.length; i++) {
 					// WE NEED TO FIX GOOGLE LOG IN.
 					if (/*transResult[i].get('username') == username && */transResult[i].get('vidId') == vidId) {
+						console.log('found transcript to load');
 						var idx = 0;
 						while ($('textarea[name="text'+idx+'"]').val()) {
 							$('textarea[name="text'+idx+'"]').val(transResult[i].attributes.textBoxes[idx]);
