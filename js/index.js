@@ -100,8 +100,8 @@ function signinCallback(authResult) {
             });
 
             // Load User
-            localStorage.setItem('username', username);
-            console.log('stored user: ' + username + ' to local storage.');
+            // localStorage.setItem('username', username);
+            // console.log('stored user: ' + username + ' to local storage.');
             parse.loadUser(userId);
         }
     });
