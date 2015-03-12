@@ -56,7 +56,7 @@ var parse = (function() {
 	         			+ '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 					}
 				}
-			})
+			});
 
 		},
 
