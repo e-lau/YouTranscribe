@@ -13,8 +13,8 @@ function getQueryVariable(variable) {
 // Initializes Parse
 // Keys are under Peter's account currently.
 var initParse = function() {
-	var keyApp = 'JxGjxQ7ByiGgivpFGz7892uqVi34zkGdEmOCuMtZ';
-	var keyJs  = 'CF4OxiRfXhMxgPkUFKySyYNpmmwXiQsIIJjj21yJ';
+	var keyApp = 'CeJSnEgVW3j3L0rWAognTPAQR2sL9j4sbp5l5Pu0';
+	var keyJs  = 'AlqxejCtHGHuEN47jpNM0uOkuTQxViX6pL6tC9SA';
 
 	Parse.initialize(keyApp, keyJs);	
 }
