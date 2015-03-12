@@ -156,7 +156,7 @@ var parse = (function() {
 				for (var i = 0; i < transResult.length; i++) {
 					if (transResult[i].get('username') == username && transResult[i].get('vidId') == vidId) {
 						var idx = 0;
-						while (idx < 54) {
+						while ($('textarea[name="text'+idx+'"]').val()) {
 							$('textarea[name="text'+idx+'"]').val(transResult[i].attributes.textBoxes[idx]);
 							// console.log(transResult[i].attributes.textBoxes[idx] + " ");
 							idx++;
