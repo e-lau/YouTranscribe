@@ -41,6 +41,24 @@ var initParse = function() {
 var parse = (function() {
 
 	return {
+
+		historyRequest: function() {
+			var Request = Parse.Object.extend('Request');
+			var req = new Request(); 
+			req.find().then(function(results) {
+				for (var i = 0; i < results.length; i++) {
+					if (results[i].get('user') == g_username) {
+						var link = results[i].get('link');
+						var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));
+	        			$('.tab-details').append('<a class="request" href=transcribe.html?youtubeid=' + link.split('=')[1] + '><img class="video-thumb" src=' + imgURL
+	         			+ '><div class="video-title">Description Here</div><div class="reward-amount">$' + reward
+	         			+ '<span>REWARD FOR TRANSCRIBING</span></div></a>');
+					}
+				}
+			})
+
+		},
+
 		// When user hit submit on index.html
 		newRequest: function(link, reward) {		
 			username = g_username;
