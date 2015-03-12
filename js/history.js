@@ -1,3 +1,3 @@
 $(document).ready(function() {
-    parse.historyRequest()
+    parse.historyRequest();
 });
