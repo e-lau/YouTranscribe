@@ -104,7 +104,6 @@ var parse = (function() {
 
 			// Need to fix.
 			while (idx < 54) {
-				console.log('idx: ' + $('textarea[name="text'+idx+'"]').val());
 				textboxes.push($('textarea[name="text'+idx+'"]').val());
 				idx++;
 			}
@@ -136,9 +135,14 @@ var parse = (function() {
 			transcript.find().then(function(transResult) {
 				// Query for user's existing list of transcripts
 				for (var i = 0; i < transResult.length; i++) {
-					if (transResult[i].get('username') == username && transResult[i].get('link') == link)
-						// TODO: Place the stored transcripts into its associated textboxes.
-						;
+					if (transResult[i].get('username') == username && transResult[i].get('vidId') == vidId) {
+						var idx = 0;
+						while (idx < 54) {
+							$('textarea[name="text'+idx+'"]').val(transResult[i].attributes.textBoxes[idx]);
+							// console.log(transResult[i].attributes.textBoxes[idx] + " ");
+							idx++;
+						}
+					}
 				}
 			});
 		}

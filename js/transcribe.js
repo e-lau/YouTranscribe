@@ -59,7 +59,7 @@ $(document).ready(function() {
         $('#duration').html("Duration: " + secformat(result.data.duration));
         $('#description').html(result.data.description);
         addTextboxes(result.data.duration);
-        // loadTranscript
+        parse.loadTranscript(videoID);
     }); 
 });
 
