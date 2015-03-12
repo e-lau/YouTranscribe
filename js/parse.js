@@ -103,9 +103,9 @@ var parse = (function() {
 			username = g_username;
 
 			// Need to fix.
-			while (idx < 54) {
+			while ($('textarea[name="text'+idx+'"]').val()) {
 				textboxes.push($('textarea[name="text'+idx+'"]').val());
-				idx++;
+				idx++;				
 			}
 
 			var Transcript = Parse.Object.extend('Transcript');
