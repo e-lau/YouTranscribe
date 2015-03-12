@@ -15,7 +15,7 @@ $(function() {
 
         var ytUrl  = $('#youtube-url').val() ? $('#youtube-url').val() : 'https://www.youtube.com/watch?v=jYbx_PV3318';
         var reward = $('#request-reward').val() ? $('#request-reward').val() : -1;
-        parse.newRequest(userId, ytUrl, reward);
+        parse.newRequest(ytUrl, reward);
     });
     
     $('#request-form-close').click(function() {
@@ -100,8 +100,6 @@ function signinCallback(authResult) {
             });
 
             // Load User
-            // localStorage.setItem('username', username);
-            // console.log('stored user: ' + username + ' to local storage.');
             parse.loadUser(userId);
         }
     });

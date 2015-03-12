@@ -9,6 +9,8 @@ function getQueryVariable(variable) {
    return(false);
 }
 
+var g_username='';
+
 var saveUser = function(username) {
 	var UserObj = Parse.Object.extend('Client');
 	var userObj = new UserObj();
@@ -40,11 +42,17 @@ var parse = (function() {
 
 	return {
 		// When user hit submit on index.html
-		newRequest: function(user, link, reward) {			
+		newRequest: function(link, reward) {		
+			username = g_username;
+			/*if (!g_username) {
+				alert('You should log in first');
+				return;
+			}*/
+
 			// Saves the Video
 			var Request = Parse.Object.extend('Request');
 			var req = new Request();
-			req.save({'link': link, 'user': user, 'reward': reward, 'status': 'new'})
+			req.save({'link': link, 'user': username, 'reward': reward, 'status': 'new'})
 				.then(function(results) {console.log('request has been saved')},
 				      function(error) {console.log("Error in saving request!");}
 				);
@@ -56,25 +64,9 @@ var parse = (function() {
 	         + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 		},
 
-		getRequests: function(user) {
-			// Gets all request from user.
-			var Request = Parse.Object.extend('Request');
-			var req = new Parse.Query(Request);
-			req.find().then(function(results) {
-				for (var i = 0; i < results.length; i++) {
-					if (results[i].get('user') === user) return results[i].get('user');	
-				}
-			}).then(function(result){
-				var imgURL = yt.getYouTubeThumbnail(yt.parseID(result.get('link')));
-				var reward = result.get('reward');
-
-			    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
-			     + '><div class="video-title">Description Goes Here</div><div class="reward-amount">$' +
-			     reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
-			});
-		},
-
 		loadUser: function(username) {
+			g_username = username;
+
 			var Client = Parse.Object.extend('Client');
 			var client = new Parse.Query(Client);
 
@@ -105,9 +97,10 @@ var parse = (function() {
 			});		
 		},
 
-		storeTranscript: function(username, vidId) {
+		storeTranscript: function(vidId) {
 			var textboxes = [];
 			var idx = 0;
+			username = g_username;
 
 			// Need to fix.
 			while (idx < 54) {
@@ -135,7 +128,9 @@ var parse = (function() {
 
 		},
 
-		loadTranscript: function(username, vidId) {
+		loadTranscript: function(vidId) {
+			username = g_username;
+
 			var Transcript = Parse.Object.extend('Transcript');
 			var transcript = new Parse.Query(Transcript);
 			transcript.find().then(function(transResult) {

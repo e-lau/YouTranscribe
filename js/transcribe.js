@@ -48,9 +48,8 @@ console.log(videoID);
 
 $(function() {
     $('#submit-transcription').click(function() {
-        username = 'fakeuser'; //localStorage.getItem('username');
-        console.log('Storing transcript under: ' + username + " | " + player.videoID);
-        parse.storeTranscript(username, videoID);
+        console.log('Storing transcript under: '+player.videoID);
+        parse.storeTranscript(videoID);
     });
 });
 
