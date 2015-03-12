@@ -108,3 +108,9 @@ function signinCallback(authResult) {
         console.log('Sign-in state: ' + authResult['error']);
     }
 }
+
+function getUserId() {
+    return userId;
+}
+
+
