@@ -31,8 +31,8 @@ var saveTranscript = function(username, vidId, textboxes) {
 // Initializes Parse
 // Keys are under Peter's account currently.
 var initParse = function() {
-	var keyApp = 'JxGjxQ7ByiGgivpFGz7892uqVi34zkGdEmOCuMtZ';
-	var keyJs  = 'CF4OxiRfXhMxgPkUFKySyYNpmmwXiQsIIJjj21yJ';
+	var keyApp = 'bXjIyaiBbhZGr8msBXLoSSsbg21mEd4uGSdOVB19';
+	var keyJs  = 'AlqxejCtHGHuEN47jpNM0uOkuTQxViX6pL6tC9SA';
 
 	Parse.initialize(keyApp, keyJs);	
 }
