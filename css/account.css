@@ -1,3 +1,7 @@
+.clear {
+    clear: both;
+}
+
 .tab-links {
     font-size: 20px;
     font-weight: 100;
@@ -89,5 +93,24 @@
 .form-group > button:active {
     box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .3);
 }
+#add-balance-form, #balance {
+    float: left;
+}
 
+#balance {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
 
+#balance .balance-header {
+    color: #888;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+#balance .balance-amount {
+    color: #a2dc6b;
+    font-size: 40px;
+    font-weight: 900;
+}

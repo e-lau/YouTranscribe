@@ -91,6 +91,8 @@ function signinCallback(authResult) {
             // Display welcome text
             request.done(function(msg) {
                 console.log(msg);
+                $('#navbar ul').append('<li><a id="request-link" href="#">Request A Video Transcription</a></li>');
+                $('#navbar ul').append('<li><a id="request-link" href="account.html">Account Settings</a></li>');
                 $('#navbar ul').append("<li id='displayName'><a href='#accountPage'>" + msg.displayName + "</a></li>");
                 $('#navbar ul').append("<li id='logoutButton'><a href=''>Logout</a></li>");
                 $('#logoutButton').click(function(event) {
