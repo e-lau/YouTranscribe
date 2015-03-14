@@ -63,10 +63,6 @@ var parse = (function() {
 		// When user hit submit on index.html
 		newRequest: function(link, reward) {		
 			username = g_username;
-			/*if (!g_username) {
-				alert('You should log in first');
-				return;
-			}*/
 
 			// Saves the Video
 			var Request = Parse.Object.extend('Request');
@@ -83,9 +79,25 @@ var parse = (function() {
 	         + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 		},
 
-		loadUser: function(username) {
-			g_username = username;
+		// This is called upon sign-in
+		loadAllRequests: function(username) {
+			g_username = username; // temporary way to store current user.
 
+			// Load existing user's requests
+			var Request = Parse.Object.extend('Request');
+			var req = new Parse.Query(Request);
+			req.find().then(function(reqResults) {
+				for (var i = 0; i < reqResults.length; i++) {
+					var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
+					var reward = reqResults[i].get('reward');
+				    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
+				     + '><div class="video-title">Description Goes Here</div><div class="reward-amount">$' +
+				     reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
+				}
+			});
+		},
+
+		loadUser: function(username) {
 			var Client = Parse.Object.extend('Client');
 			var client = new Parse.Query(Client);
 
@@ -94,9 +106,6 @@ var parse = (function() {
 				for (var i = 0; i < results.length; i++)
 					if (results[i].get('username') === username) 
 						return results[i].get('username');	
-				
-				// Save non-existing user
-				saveUser(username);
 
 			}).then(function(result) {
 				// Load existing user's requests
@@ -116,7 +125,7 @@ var parse = (function() {
 			});		
 		},
 
-		storeTranscript: function(vidId) {
+			storeTranscript: function(vidId) {
 			var textboxes = [];
 			var idx = 0;
 			username = g_username;
@@ -155,8 +164,7 @@ var parse = (function() {
 			transcript.find().then(function(transResult) {
 				// Query for user's existing list of transcripts
 				for (var i = 0; i < transResult.length; i++) {
-					// WE NEED TO FIX GOOGLE LOG IN.
-					if (/*transResult[i].get('username') == username && */transResult[i].get('vidId') == vidId) {
+					if (transResult[i].get('username') == username && transResult[i].get('vidId') == vidId) {
 						console.log('found transcript to load');
 						var idx = 0;
 						while ($('textarea[name="text'+idx+'"]').val()) {
