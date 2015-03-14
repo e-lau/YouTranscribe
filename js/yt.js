@@ -1,21 +1,9 @@
 var yt = (function() {
 
     return {
-        
-        getRequests: function() {
-            //Parse API code to get Request Objects
-            //returns request objects
-        },
-
-        /*  Takes in request objects and displays 
-            them within the .requests div 
-        **/
-        displayRequests: function(reqs) {
-                
-        },
-
-        submitRequest: function() {
-            //When the request form is submitted this function is called 
+        getDescription: function(url) {
+            if (!url) return "Error: Invalid URL";
+            else return "DESCRIPTION GOES HERE";
         },
 
         /*  Uses a regex to get the video id from a youtube url.
@@ -36,7 +24,9 @@ var yt = (function() {
         },
 
         /*  
-        Returns the url of the Medium quality defuault (mqdefault)           YouTube image - Resolution: 320 x 180 pixels., or an empty           string if the given id is null or an empty string. 
+        Returns the url of the Medium quality defuault (mqdefault)     
+        YouTube image - Resolution: 320 x 180 pixels., or an empty
+        string if the given id is null or an empty string. 
         ******************************************/
         getYouTubeThumbnail: function(id){
             if (!id) { 
