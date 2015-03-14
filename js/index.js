@@ -1,7 +1,6 @@
 var userId = "";
 var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
 
-
 $(function() {
     $('#request-link').click(function() {
         if ($('#request-form').hasClass('hidden')) {
@@ -110,8 +109,8 @@ function signinCallback(authResult) {
                     });
 
                     // Load User
-
-                    parse.loadAllRequests(userId);
+                    localStorage.setItem('userid', userId);
+                    parse.loadAllRequests();
                 }
             });
         } else {
@@ -124,8 +123,10 @@ function signinCallback(authResult) {
     }
 }
 
-
-
 function getUserId() {
     return userId;
 }
+
+$(document).ready(function() {
+    parse.loadAllRequests();
+});

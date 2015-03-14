@@ -9,7 +9,7 @@ function getQueryVariable(variable) {
    return(false);
 }
 
-var g_username='placeholder_username';
+var g_username = localStorage.getItem('userid');
 
 var saveUser = function(username) {
 	var UserObj = Parse.Object.extend('Client');
@@ -54,13 +54,11 @@ var parse = (function() {
 				);
 
 			// refresh requests on page
-			loadAllRequests(username);
+			loadAllRequests();
 		},
 
 		// This is called upon sign-in
-		loadAllRequests: function(username) {
-			g_username = username; // temporary way to store current user.
-
+		loadAllRequests: function() {
 			// Load existing user's requests
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
@@ -75,8 +73,7 @@ var parse = (function() {
 			});
 		},
 
-		loadUser: function() {
-			console.log("GLOBAL: " + g_username);
+		loadUser: function(username) {
 			username = g_username;
 
 			var Client = Parse.Object.extend('Client');
