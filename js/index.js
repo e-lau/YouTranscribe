@@ -66,7 +66,6 @@ function disconnectUser(access_token) {
 }
 
 function showUserNav() {
-    $('#navbar ul').append('<li><a id="request-link" href="#">Request A Video Transcription</a></li>');
     $('#navbar ul').append('<li><a id="settings" href="account.html">Account Settings</a></li>');
     $('#navbar ul').append("<li id='displayName'><a href='#accountPage'>" + localStorage.getItem("username") + "</a></li>");
     $('#navbar ul').append("<li id='logoutButton'><a href=''>Logout</a></li>");
