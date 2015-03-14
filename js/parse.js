@@ -63,10 +63,6 @@ var parse = (function() {
 		// When user hit submit on index.html
 		newRequest: function(link, reward) {		
 			username = g_username;
-			/*if (!g_username) {
-				alert('You should log in first');
-				return;
-			}*/
 
 			// Saves the Video
 			var Request = Parse.Object.extend('Request');
@@ -83,7 +79,10 @@ var parse = (function() {
 	         + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 		},
 
+		// This is called upon sign-in
 		loadAllRequests: function() {
+			g_username = username;
+
 			// Load existing user's requests
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
@@ -99,8 +98,6 @@ var parse = (function() {
 		},
 
 		loadUser: function(username) {
-			g_username = username;
-
 			var Client = Parse.Object.extend('Client');
 			var client = new Parse.Query(Client);
 
@@ -109,10 +106,7 @@ var parse = (function() {
 				for (var i = 0; i < results.length; i++)
 					if (results[i].get('username') === username) 
 						return results[i].get('username');	
-
-				// Save non-existing user
-				saveUser(username);
-
+					
 			}).then(function(result) {
 				// Load existing user's requests
 				var Request = Parse.Object.extend('Request');
