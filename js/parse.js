@@ -73,9 +73,10 @@ var parse = (function() {
 			});
 		},
 
-		loadUser: function(username) {
+		loadUser: function() {
 			username = g_username;
-
+			console.log("username: " + username);
+			
 			var Client = Parse.Object.extend('Client');
 			var client = new Parse.Query(Client);
 

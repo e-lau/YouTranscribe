@@ -2,12 +2,6 @@ var userId = "";
 var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
 
 $(function() {
-    $('#request-link').click(function() {
-        if ($('#request-form').hasClass('hidden')) {
-            $('#request-form').removeClass('hidden');
-        }
-    });
-
     $('#submit-request').click(function() {
         if (!$('#request-form').hasClass('hidden')) {
             $('#request-form').addClass('hidden');
@@ -16,12 +10,6 @@ $(function() {
         var ytUrl = $('#youtube-url').val() ? $('#youtube-url').val() : 'https://www.youtube.com/watch?v=jYbx_PV3318';
         var reward = $('#request-reward').val() ? $('#request-reward').val() : -1;
         parse.newRequest(ytUrl, reward);
-    });
-
-    $('#request-form-close').click(function() {
-        if (!$('#request-form').hasClass('hidden')) {
-            $('#request-form').addClass('hidden');
-        }
     });
 });
 
@@ -65,12 +53,24 @@ function disconnectUser(access_token) {
 }
 
 function showUserNav() {
+    $('#navbar ul').append('<li><a id="request-link" href="#">Request A Video Transcription</a></li>');
     $('#navbar ul').append('<li><a id="settings" href="account.html">Account Settings</a></li>');
     $('#navbar ul').append("<li id='displayName'><a href='#accountPage'>" + localStorage.getItem("username") + "</a></li>");
     $('#navbar ul').append("<li id='logoutButton'><a href=''>Logout</a></li>");
     $('#logoutButton').click(function(event) {
         event.preventDefault();
         disconnectUser(localStorage.getItem("access_token"));
+    });
+    $('#request-link').click(function() {
+        if ($('#request-form').hasClass('hidden')) {
+            $('#request-form').removeClass('hidden');
+        }
+    });
+
+    $('#request-form-close').click(function() {
+        if (!$('#request-form').hasClass('hidden')) {
+            $('#request-form').addClass('hidden');
+        }
     });
 }
 
