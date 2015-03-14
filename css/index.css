@@ -46,3 +46,8 @@
 }
 
 /**** End - Video Thumbnail with title and reward ****/
+
+/**** Kill Google iFrame ****/
+iframe[src^="https://apis.google.com/u/0/_/widget/oauthflow/toast"] {
+  display: none;
+}
