@@ -100,7 +100,7 @@ function signinCallback(authResult) {
             });
 
             // Load User
-            parse.loadUser(userId);
+            parse.loadAllRequests();
         }
     });
     } 
