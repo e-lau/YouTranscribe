@@ -1,98 +1,105 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-        <link type="text/css" rel="stylesheet" href="css/common.css">
-        <link type="text/css" rel="stylesheet" href="css/account.css">
 
-        <title>YouTranscribe - Transcribe</title>
-    </head>
-    <body>
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-fixed-top">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">
-                    <img src="images/logo.png">
-                </a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a id="request-link" href="#">Request A Video Transcription</a></li>
-                    <!--<li><a id="login" href="#">Log In</a></li>-->
-                    <li><span id="signinButton">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="css/common.css">
+    <link type="text/css" rel="stylesheet" href="css/account.css">
+
+    <title>YouTranscribe - Transcribe</title>
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><span id="signinButton">
                             <span class="g-signin"
                                 data-callback="signinCallback"
                                 data-clientid="424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com"
                                 data-cookiepolicy="single_host_origin"
                                 data-scope="https://www.googleapis.com/auth/plus.login">
                             </span>
-                        </span>
-                    </li>
-                    <!--<li><a id="signup" href="#">Sign Up</a></li>-->
-                </ul>
-            </div><!--/.nav-collapse -->
-        </nav> <!--/ .navbar -->
-        <div id="request-form" class="hidden">
-            <div class="title">REQUEST TRANSCRIPTION<button type="button" id="request-form-close" class="close"><span>&times;</span></button></div>
-            <div class="reward-amount">Reward Amount<span>$</span><input type="text" placeholder="5"></div>
-            <div class="form-section">
-                <input id="youtube-url" type="text" placeholder="https://www.youtube.com/watch?v=jYbx_PV3318">
-                <button id="submit-request">Submit</button>
-            </div>
+                    </span>
+                </li>
+                <!--<li><a id="signup" href="#">Sign Up</a></li>-->
+            </ul>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="tab-links">
-                        <a class="active">Account</a>
-                        <a href="creditcards.html">Credit Cards</a>
-                        <a href="history.html">History</a>
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <div class="tab-details">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-group">
-                            <button>Update</button>
-                        </div>
-                    </div>
+        <!--/.nav-collapse -->
+    </nav>
+    <!--/ .navbar -->
+    <div id="request-form" class="hidden">
+        <div class="title">REQUEST TRANSCRIPTION
+            <button type="button" id="request-form-close" class="close"><span>&times;</span>
+            </button>
+        </div>
+        <div class="reward-amount">Reward Amount<span>$</span>
+            <input type="text" placeholder="5">
+        </div>
+        <div class="form-section">
+            <input id="youtube-url" type="text" placeholder="https://www.youtube.com/watch?v=jYbx_PV3318">
+            <button id="submit-request">Submit</button>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="tab-links">
+                    <a class="active">Account</a>
+                    <a href="creditcards.html">Credit Cards</a>
+                    <a href="history.html">History</a>
                 </div>
             </div>
+            <div class="col-md-10">
+                <div class="tab-details">
+                    <div id="balance">
+                        <div class="balance-header">YOUR CURRENT BALANCE</div>
+                        <div class="balance-amount">$15</div>
+                    </div>
+                    <div id="add-balance-form">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="text" class="charge-amount">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Amount</label>
+                            <input type="text" class="confirm-charge-amount">
+                        </div>
+                        <div class="form-group">
+                            <label>Card</label>
+                            <select id="card-list" class="card-token"></select>
+                        </div>
+                        <div class="form-group">
+                            <button id="add-balance">Submit Charge</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src='https://www.parsecdn.com/js/parse-1.3.4.min.js'></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/yt.js"></script>
-        <script type="text/javascript" src="js/parse.js"></script>
-        <script src="https://apis.google.com/js/client:platform.js"></script>
-    </body>
+    </div>
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src='https://www.parsecdn.com/js/parse-1.3.4.min.js'></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/account.js"></script>
+    <script type="text/javascript" src="js/yt.js"></script>
+    <script type="text/javascript" src="js/parse.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js"></script>
+</body>
+
 </html>
