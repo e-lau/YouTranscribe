@@ -1,6 +1,3 @@
-var userId = "";
-var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
-
 $(function() {
     $('#submit-request').click(function() {
         if (!$('#request-form').hasClass('hidden')) {
@@ -80,7 +77,6 @@ function signinCallback(authResult) {
     if (authResult['status']['signed_in']) {
         document.getElementById('signinButton').setAttribute('style', 'display: none');
         if (localStorage.getItem("access_token") == null) {
-            console.log("getting access token..");
             // Make API call to validate the authentication token.
 
             var requesturl = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=".concat(authResult.access_token);
@@ -90,15 +86,13 @@ function signinCallback(authResult) {
             });
 
             request.done(function(msg) {
+                var clientId = "424295941249-id3jo68q6rb0j0a8mi5o45ihneip3a4u.apps.googleusercontent.com";
                 if (msg.audience == clientId) {
-                    console.log("setting access token..");
                     // Set access token in local storage
                     localStorage.setItem("access_token", authResult.access_token);
 
-                    userId = msg.user_id;
-
                     // Get user's name
-                    requesturl = "https://www.googleapis.com/plus/v1/people/".concat(userId,
+                    requesturl = "https://www.googleapis.com/plus/v1/people/".concat(msg.user_id,
                         "?access_token=", authResult.access_token);
                     request = $.ajax({
                         url: requesturl,
@@ -107,29 +101,22 @@ function signinCallback(authResult) {
 
                     // Display welcome text
                     request.done(function(msg) {
-                        console.log("setting name.." + msg.displayName);
-                        //document.getElementById("userNav").innerHTML = "";
                         localStorage.setItem("username", msg.displayName);
                         showUserNav();
                     });
 
                     // Load User
-                    localStorage.setItem('userid', userId);
+                    localStorage.setItem('userid', msg.user_id);
                     parse.loadAllRequests();
                 }
             });
         } else {
             // don't do login, just show information.
-            console.log("access token:" + localStorage.getItem("access_token"));
             showUserNav();
         }
     } else {
         document.getElementById('signinButton').setAttribute('style', 'display: block');
     }
-}
-
-function getUserId() {
-    return userId;
 }
 
 $(document).ready(function() {
