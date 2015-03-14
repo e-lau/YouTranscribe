@@ -4,7 +4,6 @@ var yt = (function() {
         getDescription: function(url) {
             if (!url) return "Error: Invalid URL";
             else return "DESCRIPTION GOES HERE";
-
         },
 
         /*  Uses a regex to get the video id from a youtube url.

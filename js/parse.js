@@ -67,7 +67,7 @@ var parse = (function() {
 					var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 					var reward = reqResults[i].get('reward');
 				    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
-				     + '><div class="video-title">' + yt.getDescription(yt.parseID(reqResults[i].get('link'))) + '</div><div class="reward-amount">$' +
+				     + '><div class="video-title">DESCRIPTION GOES HERE</div><div class="reward-amount">$' +
 				     reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 				}
 			});
