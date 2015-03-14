@@ -9,7 +9,7 @@ function getQueryVariable(variable) {
    return(false);
 }
 
-var g_username='';
+var g_username='placeholder_username';
 
 var saveUser = function(username) {
 	var UserObj = Parse.Object.extend('Client');
@@ -41,26 +41,7 @@ var initParse = function() {
 var parse = (function() {
 
 	return {
-
-		historyRequest: function() {
-			var Request = Parse.Object.extend('Request');
-			var req = new Request(); 
-			req.find().then(function(results) {
-				for (var i = 0; i < results.length; i++) {
-					if (results[i].get('user') == g_username) {
-						var link = results[i].get('link');
-						var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));
-						var reward = reqResults[i].get('reward');
-	        			$('.tab-details').append('<a class="request" href=transcribe.html?youtubeid=' + link.split('=')[1] + '><img class="video-thumb" src=' + imgURL
-	         			+ '><div class="video-title">Description Here</div><div class="reward-amount">$' + reward
-	         			+ '<span>REWARD FOR TRANSCRIBING</span></div></a>');
-					}
-				}
-			});
-
-		},
-
-		// When user hit submit on index.html
+		// When user hit submit on Request a video transcript
 		newRequest: function(link, reward) {		
 			username = g_username;
 
@@ -69,14 +50,11 @@ var parse = (function() {
 			var req = new Request();
 			req.save({'link': link, 'user': username, 'reward': reward, 'status': 'new'})
 				.then(function(results) {console.log('request has been saved')},
-				      function(error) {console.log("Error in saving request!");}
+					function(error) {console.log("Error in saving request!");}
 				);
 
-			// Append Video
-			var imgURL = yt.getYouTubeThumbnail(yt.parseID(link));
-	        $('#requests-container').append('<a class="request" href=transcribe.html?youtubeid=' + link.split('=')[1] + '><img class="video-thumb" src=' + imgURL
-	         + '><div class="video-title">Description Here</div><div class="reward-amount">$' + reward
-	         + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
+			// refresh requests on page
+			loadAllRequests(username);
 		},
 
 		// This is called upon sign-in
@@ -91,13 +69,16 @@ var parse = (function() {
 					var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 					var reward = reqResults[i].get('reward');
 				    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
-				     + '><div class="video-title">Description Goes Here</div><div class="reward-amount">$' +
+				     + '><div class="video-title">' + yt.getDescription(yt.parseID(reqResults[i].get('link'))) + '</div><div class="reward-amount">$' +
 				     reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 				}
 			});
 		},
 
-		loadUser: function(username) {
+		loadUser: function() {
+			console.log("GLOBAL: " + g_username);
+			username = g_username;
+
 			var Client = Parse.Object.extend('Client');
 			var client = new Parse.Query(Client);
 
@@ -125,12 +106,11 @@ var parse = (function() {
 			});		
 		},
 
-			storeTranscript: function(vidId) {
+		storeTranscript: function(vidId) {
 			var textboxes = [];
 			var idx = 0;
 			username = g_username;
 
-			// Need to fix.
 			while ($('textarea[name="text'+idx+'"]').val()) {
 				textboxes.push($('textarea[name="text'+idx+'"]').val());
 				idx++;				
@@ -152,15 +132,15 @@ var parse = (function() {
 				console.log('saving transcript...');
 				saveTranscript(username, vidId, textboxes);
 			});		
-
 		},
 
 		loadTranscript: function(vidId) {
 			username = g_username;
 
+			console.log('finding transcript');
+
 			var Transcript = Parse.Object.extend('Transcript');
 			var transcript = new Parse.Query(Transcript);
-			console.log('finding transcript');
 			transcript.find().then(function(transResult) {
 				// Query for user's existing list of transcripts
 				for (var i = 0; i < transResult.length; i++) {
@@ -174,6 +154,10 @@ var parse = (function() {
 					}
 				}
 			});
+		},
+
+		getUserId: function() {
+			return g_username;
 		}
 	}
 })();

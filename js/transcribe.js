@@ -54,7 +54,10 @@ $(function() {
 });
 
 $(document).ready(function() {
+    console.log("HIST: " + parse.getUserId());
+    
     $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc', function(result) {
+        console.log(result);
         $('#title').html(result.data.title);
         $('#duration').html("Duration: " + secformat(result.data.duration));
         $('#description').html(result.data.description);

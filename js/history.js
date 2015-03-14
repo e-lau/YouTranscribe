@@ -1,3 +1,4 @@
 $(document).ready(function() {
-    parse.historyRequest();
+	console.log("HIST: " + parse.getUserId());
+    parse.loadUser();
 });
