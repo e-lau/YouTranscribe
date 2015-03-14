@@ -95,8 +95,8 @@ var parse = (function() {
 						if (reqResults[i].get('user') === result) {
 							var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 							var reward = reqResults[i].get('reward');
-						    $('#vid-history').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
-						     + '></a>');
+						   	$('#vid-history').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
+				     		+ '><div class="reward-amount">$' + reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 						}
 					}
 				});
