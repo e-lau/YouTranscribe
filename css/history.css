@@ -36,3 +36,12 @@
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
+
+#vid-history {
+    padding-left: 30px;
+    padding-top: 33px;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    display: block;
+    color: #555;
+    font-weight: bold;
+}
