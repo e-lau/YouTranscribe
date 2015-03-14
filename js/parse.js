@@ -80,8 +80,8 @@ var parse = (function() {
 		},
 
 		// This is called upon sign-in
-		loadAllRequests: function() {
-			g_username = username;
+		loadAllRequests: function(username) {
+			g_username = username; // temporary way to store current user.
 
 			// Load existing user's requests
 			var Request = Parse.Object.extend('Request');
@@ -106,7 +106,7 @@ var parse = (function() {
 				for (var i = 0; i < results.length; i++)
 					if (results[i].get('username') === username) 
 						return results[i].get('username');	
-					
+
 			}).then(function(result) {
 				// Load existing user's requests
 				var Request = Parse.Object.extend('Request');
