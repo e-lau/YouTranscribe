@@ -43,7 +43,13 @@ function disconnectUser(access_token) {
         contentType: "application/json",
         dataType: 'jsonp',
         success: function(nullResponse) {
-            document.getElementById('signinButton').setAttribute('style', 'display: block');
+            if (document.getElementById('signinButton') != null) {
+                document.getElementById('signinButton').setAttribute('style', 'display: block');
+            }
+            else {
+                window.location.replace("/");
+            }
+            
             document.getElementById('request-link').remove();
             document.getElementById('settings').remove();
             document.getElementById('displayName').remove();
