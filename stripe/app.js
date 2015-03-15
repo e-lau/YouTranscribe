@@ -27,67 +27,81 @@ app.get('/stripe', function (req, res) {
    res.send('Nothing to see here...');
 });
 
-app.post('/recipient', function (req, res) {
+app.post('/cards', function(req, res) {
    var userInfo = req.body;
-   var stripeToken = userInfo.stripeToken;
-/*
-   var transfer = {
-      amount: 1000,
-      currency: 'usd'
-      recipient: recipientId,
-      name: userInfo.name,
-      type: 'individual',
-      card: stripeToken,
-      email: 'dummyemail@live.com'
-   }
- **/      
-// Create a transfer to the specified recipient
-   stripe.transfers.create(transfer, function(err, transfer) {
-     // transfer;
-   });
-  
-   console.log('**************************');
-   console.log(userInfo);
-   console.log('**************************');
 
-   stripe.recipients.create(user, function (err, recipient) {
-      console.log("woohooo new recipient!");
-      console.log(err);
-      console.log(recipient);
+   res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
+   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+   res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+console.log(req);
+console.log(userInfo);
+   stripe.recipients.listCards(userInfo.recipientId, function(err, cards) {
+      if (err) {
+         res.send({ error: err });
+      }
+      else {
+         res.send({ cards: cards });
+      }
    });
 });
 
-app.post('/addcard', function (req, res) {
+app.post('/recipient', function (req, res) {
    var userInfo = req.body;
    var stripeToken = userInfo.stripeToken;
+ 
+   console.log('**************************');
+   console.log(userInfo);
+   console.log('**************************');
 
    var user = {
       name: userInfo.name,
       type: 'individual',
       card: stripeToken,
-      email: 'dummyemail@live.com'
    }
-   
-   console.log('**************************');
-   console.log(userInfo);
-   console.log('**************************');
 
-   res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:54325');
+   res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
+   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+   res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+   stripe.recipients.create(user, function (err, recipient) {
+      if (!err) {
+         console.log(recipient);
+         res.send({ recipientId : recipient.id, cards: recipient.cards });
+      }
+      else {
+         console.log(err);
+         res.send({ error : err });
+      }
+   });
+});
+
+app.post('/addcard', function (req, res) {
+   var userInfo = req.body;
+   var cardToken = userInfo.stripeToken;
+   var recipientId = userInfo.recipientId;
+
+   if (!recipientId) {
+      res.send({ error : "No recipientId to create the card for." });
+   }
+
+   res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
    res.header('Access-Control-Allow-Headers', 'Content-Type');
 
 
-   stripe.recipients.create(user, function (err, recipient) {
-      console.log("woohooo new recipient!");
-      console.log(err);
-      console.log(recipient);
-
-      if (err) {
-         res.send({error: err});
-      }
-
-      res.send({ blah: "test", cards: recipient.cards });
-
+   stripe.recipients.createCard(
+      recipientId, 
+      { card: cardToken }, 
+      function (err, card) {
+         if (err) {
+            console.log(err);
+            res.send({ error: err });
+         }
+         else {
+            console.log(card);
+            res.send({ card: card });
+         }
    });
 });
 

@@ -1,7 +1,6 @@
 .tab-links {
     font-size: 20px;
     font-weight: 100;
-    margin-top: 50px;
     line-height: 40px;
     background-color: #fff;
     padding: 10px;
@@ -14,7 +13,7 @@
     display: block;
     color: #919191;
     text-decoration: none;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .tab-links > a:hover {
@@ -31,18 +30,22 @@
 }
 
 .tab-details {
-    min-height: 600px;
+    min-height: 500px;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
-
-
 /**** Form Styling ****/
 
 .tab-details {
     padding-top: 30px;
+    margin-bottom: 30px;
 }
+
+#add-card-form {
+
+}
+
 .form-group > label {
     display: block;
     color: #555;
@@ -77,7 +80,7 @@
     border-radius: 3px;
     font-size: 18px;
     color: #888;
-    outline:none;
+    outline: none;
 }
 
 .form-group > button {
@@ -95,6 +98,12 @@
     box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .3);
 }
 
+.form-title {
+    color: #F96821;
+    font-weight: 900;
+    margin-left: 30px;
+}
+
 select#month {
     width: 180px;
     font-size: 18px;
@@ -104,3 +113,48 @@ select#year {
     margin-left: 50px;
 }
 
+@media all and (max-width: 991px) {
+}
+
+.card-container {
+    background: #fff;
+    width: 250px;
+    height: 150px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+    padding: 20px;
+    margin-bottom: 20px;
+    float: left;
+    margin-right: 30px;
+}
+
+.card-container:active {
+    border: 2px solid #F96821;
+}
+
+.card-container .ui-card-security {
+    width: 40px;
+    height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.card-container .ui-card-group div {
+    display: inline-block;
+}
+
+.card-container .ui-card-name {
+    width: 120px;
+}
+
+.card-container .ui-card-digits {
+    font-size: 22px;
+}
+
+.card-container .ui-card-digits .last4 {
+    font-size: 18px;
+}

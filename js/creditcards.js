@@ -1,6 +1,6 @@
 var parseUserId = "";
-
-var getUserId = function () {
+var userRecipientId = "";
+var initUserId = function (callback) {
     var Client = Parse.Object.extend('Client');
     var client = new Parse.Query(Client);
 
@@ -10,11 +10,14 @@ var getUserId = function () {
         success: function (results) {
             localStorage.setItem('parseUserId', results[0].id);
             parseUserId = results[0].id;
-            return results[0].id;
+            userRecipientId = results[0].attributes.recipientId;
+            
+            if(typeof callback === "function") {
+                callback();
+            }
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
-            return "";
         }
     });
 }
@@ -41,7 +44,7 @@ var updateClient = function (key, value) {
     });
 }
 
-var getRecipientToken = function () {
+var getRecipientId = function () {
     if (!g_username) {
         return null;
     }
@@ -52,7 +55,7 @@ var getRecipientToken = function () {
     client.get(parseUserId, {
         success: function (obj) {
             // The object was retrieved successfully.
-            return obj.recipientToken;
+            return obj.recipientId;
         },
         error: function (object, error) {
             // The object was not retrieved successfully.
@@ -67,11 +70,10 @@ $('#submit-add-card').click(function (event) {
     $form.find('button').prop('disabled', true);
 
     var stripeResponseCallback = handleNewRecipient
-    var recipientTok = getRecipientToken();
-
-    if (recipientTok) {
-        stripeResponseCallback = function () {
-            handleExistingRecipient(recipientTok);
+    
+    if (userRecipientId) {
+        stripeResponseCallback = function (status, response) {
+            handleExistingRecipient(response.id, response.error);
         }
     }
 
@@ -80,7 +82,6 @@ $('#submit-add-card').click(function (event) {
     var cvc = $('.card-cvc').val();
     var exp_month = $('.card-expiry-month').val();
     var exp_year = $('.card-expiry-year').val();
-    var dynamic_last4 = number % 10000;
 
     Stripe.card.createToken({
         name: name,
@@ -88,28 +89,23 @@ $('#submit-add-card').click(function (event) {
         cvc: cvc,
         exp_month: exp_month,
         exp_year: exp_year,
-        dynamic_last4: dynamic_last4
-    }, stripeResponseHandler);
+    }, stripeResponseCallback);
 
     return false;
 });
 
-function handleExistingRecipient(status, response) {
+function handleExistingRecipient(token, error) {
     var $form = $('#recipient-form');
 
-    if (response.error) {
+    if (error) {
         // Show the errors on the form
-        $form.find('.payment-errors').text(response.error.message);
+        $form.find('.payment-errors').text(error.message);
         $form.find('button').prop('disabled', false);
-    } else {
-        var token = response.id;
-        var recipientToken = getRecipientToken();
-
+    } else {        
         $.post('http://localhost:3000/addcard', {
             stripeToken: token,
-            recipientToken: recipientToken,
+            recipientId: userRecipientId,
             name: $('.card-name').val(),
-            email: $('.card-email').val()
 
         }).done(function (data) {
             console.log("post was completed");
@@ -135,7 +131,35 @@ function handleNewRecipient(status, response) {
         }).done(function (data) {
             console.log("post was completed");
             console.log(data);
+            updateClient("recipientId", data.recipientId);
         });
     }
 }
-getUserId();
+
+function getCards(callback) {
+    if (!userRecipientId) {
+        return null;
+    }
+    
+    $.post('http://localhost:3000/cards', {
+        recipientId: userRecipientId
+    }).done(function(data) {
+        console.log(data);
+        console.log(data.cards);
+        if(typeof callback === "function") {
+            if (data && data.cards && data.cards.data) {
+                callback(data.cards.data);    
+            }
+        }
+    });
+}
+
+function addUICards() {
+    getCards(function(cards) {
+        for (var i = 0; i < cards.length; i++) {
+            $('#cards-container').append('<div class="card-container"><div class="ui-card-security"></div><div class="ui-card-digits">**** **** **** <span data-last4="' + cards[i].last4 + '" class="last4">' + cards[i].last4 + '</span></div><div class="ui-card-group"><div data-name="' + cards[i].name + '" class="ui-card-name">' + cards[i].name + '</div><div class="ui-card-exp">Exp: ' + cards[i].exp_month + '/' + cards[i].exp_year + '</div></div></div>');    
+        }
+        
+    });
+}
+initUserId(addUICards);
