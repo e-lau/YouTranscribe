@@ -47,6 +47,12 @@
 .tab-details {
     padding-top: 30px;
 }
+
+#add-balance-form .form-title {
+    color: #F96821;
+    font-weight: 900;
+}
+
 .form-group > label {
     display: block;
     color: #555;

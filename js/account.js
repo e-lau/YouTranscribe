@@ -1,14 +1,14 @@
 $(function() {
 
     var getUser = function() {
-        if (!userId) {
+        if (!g_username) {
             return null;
         }    
         
         var Client = Parse.Object.extend('Client');
 		var client = new Parse.Query(Client);
 
-		client.find({ username: userId }).then(function(results) {
+		client.find({ username: g_username }).then(function(results) {
             if (results[0]) {
                 return results[0];
             }
@@ -19,7 +19,7 @@ $(function() {
     }
     
     var getbalance = function() {
-        if (!userId) {
+        if (!g_username) {
             return "0";
         }
         var user = getUser();
@@ -32,7 +32,7 @@ $(function() {
     }
     
     var addBalance = function(amount) {
-        if (!userId) {
+        if (!g_username) {
             return;
         }
         
