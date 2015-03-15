@@ -117,7 +117,7 @@ function fillCardList(cards) {
 }
 
 function addCardOption(card) {
-    $('#card-list').append('<option>' + card.brand + ': **** **** **** ' + card.last4 +'</option>');
+    $('#card-list').append('<option data-id="' + card.id + '">' + card.brand + ': **** **** **** ' + card.last4 +'</option>');
 }
 
 var addBalance = function (amount) {
@@ -125,5 +125,12 @@ var addBalance = function (amount) {
         return;
     }
 }
+
+$('#add-balance').click(function(event) {
+    $(this).prop('disabled', true);
+    $(this).prop('disabled', false);
+
+    return false;
+});
 
 initUserId(function() { getBalance(getCards); });

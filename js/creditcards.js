@@ -1,5 +1,6 @@
 var parseUserId = "";
 var userRecipientId = "";
+
 var initUserId = function (callback) {
     var Client = Parse.Object.extend('Client');
     var client = new Parse.Query(Client);
@@ -66,8 +67,8 @@ var getRecipientId = function () {
 }
 
 $('#submit-add-card').click(function (event) {
-    var $form = $(this);
-    $form.find('button').prop('disabled', true);
+    
+    $(this).prop('disabled', true);
 
     var stripeResponseCallback = handleNewRecipient
 
@@ -100,7 +101,7 @@ function handleExistingRecipient(token, error) {
     if (error) {
         // Show the errors on the form
         $form.find('.payment-errors').text(error.message);
-        $form.find('button').prop('disabled', false);
+        $('#submit-add-card').prop('disabled', false);
     } else {
         $.post('http://localhost:3000/addcard', {
             stripeToken: token,
@@ -111,6 +112,7 @@ function handleExistingRecipient(token, error) {
             console.log("post was completed");
             console.log(data);
             addCard(data.card);
+            $('#submit-add-card').prop('disabled', false);
         });
     }
 }
@@ -134,9 +136,12 @@ function handleNewRecipient(status, response) {
             console.log(data);
             updateClient("recipientId", data.recipientId);
             userRecipientId = data.recipientId;
+            
             if (data.cards && data.cards.data.length > 0) {
                 addCard(data.cards.data[0]);
             }
+            
+            $('#submit-add-card').prop('disabled', false);
         });
     }
 }

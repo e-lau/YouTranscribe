@@ -17,7 +17,7 @@
     display: block;
     color: #919191;
     text-decoration: none;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .tab-links > a:hover {
@@ -39,8 +39,6 @@
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
-
-
 /**** Form Styling ****/
 
 .tab-details {
@@ -81,7 +79,7 @@
     border-radius: 3px;
     font-size: 18px;
     color: #888;
-    outline:none;
+    outline: none;
 }
 
 .form-group > button {
@@ -98,7 +96,13 @@
 .form-group > button:active {
     box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .3);
 }
-#add-balance-form, #balance {
+
+.form-group > button:disabled {
+    opacity: 0.5;
+}
+
+#add-balance-form,
+#balance {
     float: left;
 }
 

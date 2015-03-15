@@ -98,6 +98,10 @@
     box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .3);
 }
 
+.form-group > button:disabled {
+    opacity: 0.5;
+}
+
 .form-title {
     color: #F96821;
     font-weight: 900;
