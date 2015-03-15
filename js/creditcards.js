@@ -11,8 +11,8 @@ var initUserId = function (callback) {
             localStorage.setItem('parseUserId', results[0].id);
             parseUserId = results[0].id;
             userRecipientId = results[0].attributes.recipientId;
-            
-            if(typeof callback === "function") {
+
+            if (typeof callback === "function") {
                 callback();
             }
         },
@@ -70,7 +70,7 @@ $('#submit-add-card').click(function (event) {
     $form.find('button').prop('disabled', true);
 
     var stripeResponseCallback = handleNewRecipient
-    
+
     if (userRecipientId) {
         stripeResponseCallback = function (status, response) {
             handleExistingRecipient(response.id, response.error);
@@ -101,7 +101,7 @@ function handleExistingRecipient(token, error) {
         // Show the errors on the form
         $form.find('.payment-errors').text(error.message);
         $form.find('button').prop('disabled', false);
-    } else {        
+    } else {
         $.post('http://localhost:3000/addcard', {
             stripeToken: token,
             recipientId: userRecipientId,
@@ -110,6 +110,7 @@ function handleExistingRecipient(token, error) {
         }).done(function (data) {
             console.log("post was completed");
             console.log(data);
+            addCard(data.card);
         });
     }
 }
@@ -132,6 +133,10 @@ function handleNewRecipient(status, response) {
             console.log("post was completed");
             console.log(data);
             updateClient("recipientId", data.recipientId);
+            userRecipientId = data.recipientId;
+            if (data.cards && data.cards.data.length > 0) {
+                addCard(data.cards.data[0]);
+            }
         });
     }
 }
@@ -140,26 +145,30 @@ function getCards(callback) {
     if (!userRecipientId) {
         return null;
     }
-    
+
     $.post('http://localhost:3000/cards', {
         recipientId: userRecipientId
-    }).done(function(data) {
+    }).done(function (data) {
         console.log(data);
         console.log(data.cards);
-        if(typeof callback === "function") {
+        if (typeof callback === "function") {
             if (data && data.cards && data.cards.data) {
-                callback(data.cards.data);    
+                callback(data.cards.data);
             }
         }
     });
 }
 
+function addCard(card) {
+    $('#cards-container').append('<div class="card-container"><div class="ui-card-security"></div><div class="ui-card-digits">**** **** **** <span data-last4="' + card.last4 + '" class="last4">' + card.last4 + '</span></div><div class="ui-card-group"><div data-name="' + card.name + '" class="ui-card-name">' + card.name + '</div><div class="ui-card-exp">Exp: ' + card.exp_month + '/' + card.exp_year + '</div></div></div>');
+}
+
 function addUICards() {
-    getCards(function(cards) {
+    getCards(function (cards) {
         for (var i = 0; i < cards.length; i++) {
-            $('#cards-container').append('<div class="card-container"><div class="ui-card-security"></div><div class="ui-card-digits">**** **** **** <span data-last4="' + cards[i].last4 + '" class="last4">' + cards[i].last4 + '</span></div><div class="ui-card-group"><div data-name="' + cards[i].name + '" class="ui-card-name">' + cards[i].name + '</div><div class="ui-card-exp">Exp: ' + cards[i].exp_month + '/' + cards[i].exp_year + '</div></div></div>');    
+            addCard(cards[i]);
         }
-        
     });
 }
+
 initUserId(addUICards);

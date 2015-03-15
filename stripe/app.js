@@ -50,10 +50,6 @@ app.post('/recipient', function (req, res) {
    var userInfo = req.body;
    var stripeToken = userInfo.stripeToken;
  
-   console.log('**************************');
-   console.log(userInfo);
-   console.log('**************************');
-
    var user = {
       name: userInfo.name,
       type: 'individual',
