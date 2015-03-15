@@ -43,5 +43,30 @@
     font-family: Lato, Helvetica, Arial, sans-serif;
     display: block;
     color: #555;
-    font-weight: bold;
+    font-weight: 700;
+}
+
+.request {
+    display: inline-block;
+    width: 320px;
+    height: 201px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+    text-decoration: none;
+    margin: 10px;
+}
+
+.request > .reward-amount > span {
+  font-size: 12px;
+  color: #888;
+  margin-left: 8px;
+}
+
+.request > .reward-amount {
+  vertical-align: bottom;
+  font-size: 17px;
+  font-weight: 600;
+  color: #72af34;
+  padding-left: 10px;
 }
