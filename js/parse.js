@@ -72,6 +72,7 @@ var parse = (function() {
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
 			req.find().then(function(reqResults) {
+				$('#requests-container').children().remove();
 				for (var i = 0; i < reqResults.length; i++) {
 					var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 					var reward = reqResults[i].get('reward');
