@@ -1,6 +1,17 @@
 var yt = (function() {
 
     return {
+        secformat: function(sec) {
+            var fm = [
+                Math.floor(sec/60) % 60, // Minutes
+                sec % 60 // Seconds
+            ];
+
+            return $.map(fm, function(v,i) {
+                return ((v < 10) ? '0' : '') +v;
+            }).join(':');
+        },
+      
         getDescription: function(url) {
             if (!url) return "Error: Invalid URL";
             else return "DESCRIPTION GOES HERE";
@@ -18,7 +29,9 @@ var yt = (function() {
             var match = url.match(regExp);
             if (match && match[2].length == 11) {
                 videoID = match[2];
-            } 
+            } else {
+              videoID = 'invalidyoutubeid';
+            }
 
             return videoID;
         },

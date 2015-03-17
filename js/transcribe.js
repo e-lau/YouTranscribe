@@ -48,7 +48,7 @@ console.log(videoID);
 
 $(function() {
     $('#submit-transcription').click(function() {
-        console.log('Storing transcript under: '+ player.videoID);
+        console.log('Storing transcript under: '+ videoID);
         parse.storeTranscript(videoID);
     });
 });
@@ -60,6 +60,7 @@ $(document).ready(function() {
         $('#duration').html("Duration: " + secformat(result.data.duration));
         $('#description').html(result.data.description);
         addTextboxes(result.data.duration);
+        parse.loadInfo(result.data.player.default.split('&')[0]); //Reward
         parse.loadTranscript(videoID);
     }); 
 });

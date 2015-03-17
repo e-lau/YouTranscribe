@@ -23,7 +23,7 @@ var initUserId = function (callback) {
     });
 }
 
-var updateClient = function (key, value) {
+var updateClient = function (key, value, callback) {
     if (!parseUserId) {
         return;
     }
@@ -34,10 +34,21 @@ var updateClient = function (key, value) {
     query.get(parseUserId, {
         success: function (obj) {
             obj.set(key, value);
-            obj.save();
+            obj.save(null, {
+                success: function(c) {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                },
+                error: function(c, error) {
+                    console.log(error);
+                }
+            });
             // The object was retrieved successfully.
+
         },
         error: function (obj, error) {
+            console.log(obj);
             console.log(error);
             // The object was not retrieved successfully.
             // error is a Parse.Error with an error code and message.
@@ -77,7 +88,7 @@ var getBalance = function (callback) {
             console.log(obj);
             $('.balance-amount').html("$" + obj.attributes.balance);
             if (typeof callback === "function") {
-                callback();
+                callback(obj.attributes.balance);
             }
         },
         error: function (obj, error) {
@@ -127,8 +138,47 @@ var addBalance = function (amount) {
 }
 
 $('#add-balance').click(function(event) {
-    $(this).prop('disabled', true);
-    $(this).prop('disabled', false);
+    $(this).prop('disabled', true);        
+    $('#add-balance-form').find('.payment-errors').hide();
+
+    if (!userRecipientId) {
+        return false;
+    }
+
+    var amount = $('.charge-amount').val();
+    var confirmAmount = $('.confirm-charge-amount').val();
+    
+    if (amount !== confirmAmount) { 
+        $('#add-balance-form').find('.payment-errors').show();
+        $('#add-balance-form').find('.payment-errors').text("Amount and Confirm Amount do not match.");
+        $(this).prop('disabled', false);
+        return false;
+    }
+    
+    if (typeof amount !== 'number' || typeof confirmAmount !== 'number') {
+        $('#add-balance-form').find('.payment-errors').show();
+        $('#add-balance-form').find('.payment-errors').text("Please enter a number.");
+        $(this).prop('disabled', false);
+        return false;
+    }
+    var card = $('#card-list option:selected').data('id');
+    getBalance(function(balance) { 
+        $(this).prop('disabled', false);
+        updateClient('balance', balance + parseInt(amount), function() { getBalance(); 
+                                                                  $('#add-balance').prop('disabled', false);     
+                                                                       });
+    });
+    
+    /*
+    $.post('http://localhost:3000/charge', {
+            card: card, 
+            amount: amount
+        }).done(function (data) {
+            console.log("post was completed");
+            console.log(data);
+            $(this).prop('disabled', false);
+        });*/
+    
 
     return false;
 });

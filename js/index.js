@@ -1,12 +1,30 @@
 $(function() {
     $('#submit-request').click(function() {
-        if (!$('#request-form').hasClass('hidden')) {
-            $('#request-form').addClass('hidden');
-        }
+        
 
         var ytUrl = $('#youtube-url').val() ? $('#youtube-url').val() : 'https://www.youtube.com/watch?v=jYbx_PV3318';
-        var reward = $('#request-reward').val() ? $('#request-reward').val() : -1;
-        parse.newRequest(ytUrl, reward);
+        var reward = $('#request-reward').val() ? $('#request-reward').val() : '0';
+        
+        var jsonURL = 'https://gdata.youtube.com/feeds/api/videos/' + yt.parseID(ytUrl) + '?v=2&alt=jsonc';
+      
+        $.getJSON(jsonURL)
+        .success(function(result) {
+            if (!$('#request-form').hasClass('hidden')) {
+              $('#request-form').addClass('hidden');
+            }
+
+            var title = result.data.title;
+            var duration = yt.secformat(result.data.duration);
+
+            parse.newRequest(ytUrl, reward, title, duration);
+            
+
+        })
+        
+        .fail(function(error) {
+            alert('enter valid youtube url');
+            console.log('error getting youtube info');
+        });
     });
 });
 

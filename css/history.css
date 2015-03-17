@@ -37,12 +37,12 @@
 }
 
 #vid-history {
-    padding-left: 30px;
     padding-top: 33px;
     font-family: Lato, Helvetica, Arial, sans-serif;
     display: block;
-    color: #555;
-    font-weight: 700;
+    color: #F96821;
+    font-weight: 900;
+    margin-left: 30px;
 }
 
 .request {
