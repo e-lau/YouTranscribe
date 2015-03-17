@@ -46,13 +46,6 @@ function addTextboxes(duration) {
 var videoID = getQueryVariable("youtubeid");
 console.log(videoID);
 
-$(function() {
-    $('#submit-transcription').click(function() {
-        console.log('Storing transcript under: '+ videoID);
-        parse.storeTranscript(videoID);
-    });
-});
-
 $(document).ready(function() {
     $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc', function(result) {
         console.log(result);
@@ -89,13 +82,12 @@ function onYouTubePlayerAPIReady() {
 function allTextboxesFilled() {
     var idx = 0;
     var textLength = 0;
-    while ($('textarea[name="text'+idx+'"]').val()) {
-        textLength = $('textarea[name="text'+idx+'"]').val().length;
-        console.log("textlength: " + textLength)
-        if (textLength == 0) {
+    while ($('textarea[name="text'+idx+'"]').length > 0) {
+        if (!$('textarea[name="text'+idx+'"]').val()) {
+            console.log("text area " + idx + " is empty")
             return false;
         }
-        idx++;         
+        idx++;
     }
     return true;
 }
@@ -104,6 +96,7 @@ function submitButtonClicked() {
     // Todo: Handle parse error
     if (allTextboxesFilled()) {
         // Success
+        parse.storeTranscript(videoID);
         $( ".container-fluid" ).prepend( "<div class=\"alert alert-success .alert-dismissibl\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Success</strong>! Thank you for transcribing. We will send a notification to the requester. Redirecting you to the main page in 5 seconds...</div>" );
         setTimeout("window.location.replace('/')", 5000);
     }
