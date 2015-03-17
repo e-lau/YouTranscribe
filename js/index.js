@@ -22,7 +22,7 @@ $(function() {
         })
         
         .fail(function(error) {
-            alert('enter valid youtube url');
+            $( ".container-fluid" ).prepend( "<div class=\"alert alert-danger .alert-dismissibl\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Error</strong>! The video URL was invalid.</div>" );
             console.log('error getting youtube info');
         });
     });

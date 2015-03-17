@@ -97,7 +97,7 @@ function submitButtonClicked() {
     if (allTextboxesFilled()) {
         // Success
         parse.storeTranscript(videoID);
-        $( ".container-fluid" ).prepend( "<div class=\"alert alert-success .alert-dismissibl\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Success</strong>! Thank you for transcribing. We will send a notification to the requester. Redirecting you to the main page in 5 seconds...</div>" );
+        $( ".container-fluid" ).prepend( "<div class=\"alert alert-success .alert-dismissibl\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Success</strong>! Thank you for transcribing. The video will show in the requester's history. Redirecting you to the main page in 5 seconds...</div>" );
         setTimeout("window.location.replace('/')", 5000);
     }
     else {
