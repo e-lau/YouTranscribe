@@ -153,7 +153,7 @@ var parse = (function() {
 					if (transResult[i].get('username') == username && transResult[i].get('vidId') == vidId) {
 						console.log('found transcript to load');
 						var idx = 0;
-						while ($('textarea[name="text'+idx+'"]').val()) {
+						while ($('textarea[name="text'+idx+'"]').val() !== undefined) {
 							$('textarea[name="text'+idx+'"]').val(transResult[i].attributes.textBoxes[idx]);
 							idx++;
 						}
