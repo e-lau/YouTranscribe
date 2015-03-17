@@ -85,3 +85,8 @@ function onYouTubePlayerAPIReady() {
     });
 }
 
+function submitButtonClicked() {
+    // Add success text; but only do this when storing
+    // a transcription was successful.
+    $( ".container-fluid" ).prepend( "<div class=\"alert alert-success\" role=\"alert\">Success! Thank you for transcribing. We will send a notification to the requester.</div>" );
+}
