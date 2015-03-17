@@ -105,10 +105,17 @@ var parse = (function() {
 						if (reqResults[i].get('user') === result) {
 							var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 							var reward = reqResults[i].get('reward');
+							var status = reqResults[i].get('status');
 
-				     		$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
-				     		+ '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount">$' +
-				     		reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
+							if (status === "new") {
+					     		$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
+					     		+ '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount">$' +
+					     		reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
+							}
+							else {
+					     		$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
+					     		+ '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount">TRANSCRIBED</div></a>');
+							}
 						}
 					}
 				});
@@ -141,6 +148,20 @@ var parse = (function() {
 				textboxes.push($('textarea[name="text'+idx+'"]').val());
 				idx++;				
 			}
+
+			// Set Status of a video
+			var Request = Parse.Object.extend('Request');
+			var req = new Parse.Query(Request);
+			var url = "https://www.youtube.com/watch?v=" + vidId;
+			console.log("url is: " + url);
+			req.find().then(function(reqResults) {
+				for (var i = 0; i < reqResults.length; i++) {
+					if (reqResults[i].get('link') === url) {
+						console.log("setting..");
+						reqResults[i].set('status', 'transcribed');
+					}
+				}
+			});
 
 			var Transcript = Parse.Object.extend('Transcript');
 			var transcript = new Parse.Query(Transcript);
