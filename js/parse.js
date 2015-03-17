@@ -72,6 +72,7 @@ var parse = (function() {
 			var Request = Parse.Object.extend('Request');
 			var req = new Parse.Query(Request);
 			req.find().then(function(reqResults) {
+				$('#requests-container').children().remove();
 				for (var i = 0; i < reqResults.length; i++) {
 					var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 					var reward = reqResults[i].get('reward');
@@ -117,11 +118,14 @@ var parse = (function() {
 				req.find().then(function(reqResults) {
 					for (var i = 0; i < reqResults.length; i++) {
 						if (reqResults[i].get('username') === result) {
+							var id = reqResults[i].get('vidId');
 							var url = 'https://www.youtube.com/watch?v=' + reqResults[i].get('vidId');
 							var imgURL = yt.getYouTubeThumbnail(yt.parseID(url));
 							var reward = reqResults[i].get('reward');
-						   	$('#tran-history').append('<a class="transcribed col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('vidId') + '><img class="video-thumb" src=' + imgURL
+
+							$('#tran-history').append('<a class="transcribed col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('vidId') + '><img class="video-thumb" src=' + imgURL
 				     		+ '></a>');
+
 						}
 					}
 				});
