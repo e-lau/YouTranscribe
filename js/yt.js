@@ -29,7 +29,9 @@ var yt = (function() {
             var match = url.match(regExp);
             if (match && match[2].length == 11) {
                 videoID = match[2];
-            } 
+            } else {
+              videoID = 'invalidyoutubeid';
+            }
 
             return videoID;
         },
