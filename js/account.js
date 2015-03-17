@@ -35,12 +35,12 @@ var updateClient = function (key, value, callback) {
         success: function (obj) {
             obj.set(key, value);
             obj.save(null, {
-                success: function(c) {
+                success: function (c) {
                     if (typeof callback === "function") {
                         callback();
                     }
                 },
-                error: function(c, error) {
+                error: function (c, error) {
                     console.log(error);
                 }
             });
@@ -79,7 +79,7 @@ var getBalance = function (callback) {
     if (!parseUserId) {
         return "0";
     }
-    
+
     var Client = Parse.Object.extend("Client");
     var query = new Parse.Query(Client);
 
@@ -128,7 +128,7 @@ function fillCardList(cards) {
 }
 
 function addCardOption(card) {
-    $('#card-list').append('<option data-id="' + card.id + '">' + card.brand + ': **** **** **** ' + card.last4 +'</option>');
+    $('#card-list').append('<option data-id="' + card.id + '">' + card.brand + ': **** **** **** ' + card.last4 + '</option>');
 }
 
 var addBalance = function (amount) {
@@ -137,24 +137,34 @@ var addBalance = function (amount) {
     }
 }
 
-$('#add-balance').click(function(event) {
-    $(this).prop('disabled', true);        
+$('#cashout').click(function (event) {
+    $('#cashout').prop('disabled', true);
+    setTimeout(function() {
+            updateClient('balance', 0, function () {
+            getBalance(function() {$('#cashout').prop('disabled', false);});
+            
+        });
+    }, 500);
+});
+
+$('#add-balance').click(function (event) {
+    $(this).prop('disabled', true);
     $('#add-balance-form').find('.payment-errors').hide();
 
     if (!userRecipientId) {
         return false;
     }
 
-    var amount = $('.charge-amount').val();
-    var confirmAmount = $('.confirm-charge-amount').val();
-    
-    if (amount !== confirmAmount) { 
+    var amount = parseInt($('.charge-amount').val());
+    var confirmAmount = parseInt($('.confirm-charge-amount').val());
+
+    if (amount !== confirmAmount) {
         $('#add-balance-form').find('.payment-errors').show();
         $('#add-balance-form').find('.payment-errors').text("Amount and Confirm Amount do not match.");
         $(this).prop('disabled', false);
         return false;
     }
-    
+
     if (typeof amount !== 'number' || typeof confirmAmount !== 'number') {
         $('#add-balance-form').find('.payment-errors').show();
         $('#add-balance-form').find('.payment-errors').text("Please enter a number.");
@@ -162,13 +172,13 @@ $('#add-balance').click(function(event) {
         return false;
     }
     var card = $('#card-list option:selected').data('id');
-    getBalance(function(balance) { 
-        $(this).prop('disabled', false);
-        updateClient('balance', balance + parseInt(amount), function() { getBalance(); 
-                                                                  $('#add-balance').prop('disabled', false);     
-                                                                       });
+    getBalance(function (balance) {
+        updateClient('balance', balance + parseInt(amount), function () {
+            getBalance();
+            $('#add-balance').prop('disabled', false);
+        });
     });
-    
+
     /*
     $.post('http://localhost:3000/charge', {
             card: card, 
@@ -177,10 +187,12 @@ $('#add-balance').click(function(event) {
             console.log("post was completed");
             console.log(data);
             $(this).prop('disabled', false);
-        });*/
-    
+        });**/
+
 
     return false;
 });
 
-initUserId(function() { getBalance(getCards); });
+initUserId(function () {
+    getBalance(getCards);
+});
