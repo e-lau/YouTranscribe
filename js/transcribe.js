@@ -86,8 +86,29 @@ function onYouTubePlayerAPIReady() {
     });
 }
 
+function allTextboxesFilled() {
+    var idx = 0;
+    var textLength = 0;
+    while ($('textarea[name="text'+idx+'"]').val()) {
+        textLength = $('textarea[name="text'+idx+'"]').val().length;
+        console.log("textlength: " + textLength)
+        if (textLength == 0) {
+            return false;
+        }
+        idx++;         
+    }
+    return true;
+}
+
 function submitButtonClicked() {
-    // Add success text; but only do this when storing
-    // a transcription was successful.
-    $( ".container-fluid" ).prepend( "<div class=\"alert alert-success\" role=\"alert\">Success! Thank you for transcribing. We will send a notification to the requester.</div>" );
+    // Todo: Handle parse error
+    if (allTextboxesFilled()) {
+        // Success
+        $( ".container-fluid" ).prepend( "<div class=\"alert alert-success .alert-dismissibl\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Success</strong>! Thank you for transcribing. We will send a notification to the requester. Redirecting you to the main page in 5 seconds...</div>" );
+        setTimeout("window.location.replace('/')", 5000);
+    }
+    else {
+        // Warning
+        $( ".container-fluid" ).prepend( "<div class=\"alert alert-warning .alert-dismissibl\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Warning</strong>! One or more of the transcription boxes are empty.</div>" );
+    }
 }
