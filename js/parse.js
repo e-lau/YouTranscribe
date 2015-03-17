@@ -167,8 +167,8 @@ var parse = (function() {
 			var req = new Parse.Query(Request);
 			req.find().then(function(reqResults) {
 				for (var i = 0; i < reqResults.length; i++) {
-					if (reqResults[i].get('user') === g_username && reqResults[i].get('link') === link) {
-						$('#amount').html(reqResults[i].get('reward'));
+					if (reqResults[i].get('link') === link) {
+						$('#amount').html('$' + reqResults[i].get('reward'));
 						return ;
 					}
 				}
