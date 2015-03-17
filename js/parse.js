@@ -114,7 +114,7 @@ var parse = (function() {
 							}
 							else {
 					     		$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
-					     		+ '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount">TRANSCRIBED</div></a>');
+					     		+ '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Transcribed!</div></a>');
 							}
 						}
 					}
