@@ -37,18 +37,46 @@
 }
 
 #vid-history {
-    padding-left: 30px;
     padding-top: 33px;
     font-family: Lato, Helvetica, Arial, sans-serif;
     display: block;
-    color: #555;
-    font-weight: 700;
+    color: #F96821;
+    font-weight: 900;
+    margin-left: 30px;
+}
+
+#tran-history {
+    padding-top: 33px;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    display: block;
+    color: #F96821;
+    font-weight: 900;
+    margin-left: 30px;
 }
 
 .request {
     display: inline-block;
     width: 320px;
-    height: 201px;
+    height: 270px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+    text-decoration: none;
+    margin: 10px;
+}
+
+.request > .video-title {
+  font-size: 14px;
+  color: #555;
+  font-weight: 600;
+  height: 55px;
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transcribed {
+    display: inline-block;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, .2);

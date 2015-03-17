@@ -105,8 +105,27 @@ var parse = (function() {
 						if (reqResults[i].get('user') === result) {
 							var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 							var reward = reqResults[i].get('reward');
-						   	$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
-				     		+ '><div class="reward-amount">$' + reward + '<span> REWARD AMOUNT</span></div></a>');
+
+				     		$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
+				     		+ '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount">$' +
+				     		reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
+						}
+					}
+				});
+
+				var Request = Parse.Object.extend('Transcript');
+				var req = new Parse.Query(Request);
+				req.find().then(function(reqResults) {
+					for (var i = 0; i < reqResults.length; i++) {
+						if (reqResults[i].get('username') === result) {
+							var id = reqResults[i].get('vidId');
+							var url = 'https://www.youtube.com/watch?v=' + reqResults[i].get('vidId');
+							var imgURL = yt.getYouTubeThumbnail(yt.parseID(url));
+							var reward = reqResults[i].get('reward');
+
+							$('#tran-history').append('<a class="transcribed col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('vidId') + '><img class="video-thumb" src=' + imgURL
+				     		+ '></a>');
+
 						}
 					}
 				});
