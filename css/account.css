@@ -123,3 +123,12 @@
     font-size: 40px;
     font-weight: 900;
 }
+
+.payment-errors {
+    display: none;
+    padding: 4px;
+    background: #ea6666;
+    border: 1px solid #c51a1a;
+    border-radius: 3px;
+    color: #fff;
+}

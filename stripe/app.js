@@ -23,8 +23,27 @@ stripe.transfers.create({
 });
 **/
 
-app.get('/stripe', function (req, res) {
-   res.send('Nothing to see here...');
+app.post('/charge', function (req, res) {
+   var transaction = req.body;
+   var card = transaction.card;
+   var amount = transaction.amount; // hardcoded $10
+
+   var charge = {
+      amount: amount * 100,
+      currency: 'USD',
+      source: card,
+   };
+   
+   stripe.charges.create(charge, function(err, charge) {
+      if (err) {
+         console.log(err);
+         res.send('There was an error charging the payment.');
+      }
+      else {
+         console.log('Successful charge sent to stripe!');
+         res.send('Successful charge sent to stripe!');
+      }
+   });
 });
 
 app.post('/cards', function(req, res) {
