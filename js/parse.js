@@ -24,7 +24,7 @@ var saveUser = function(username) {
 var saveTranscript = function(username, vidId, textboxes) {
 	var Transcript = Parse.Object.extend('Transcript');
 	var transcript = new Transcript();
-	transcript.save({'username':username, 'vidId': vidId, 'textBoxes': textboxes})
+	transcript.save({'username': username, 'vidId': vidId, 'textBoxes': textboxes})
 		.then(function(results) {
 			console.log('saved transcript successfully');
 		});
@@ -42,15 +42,24 @@ var parse = (function() {
 
 	return {
 		// When user hit submit on Request a video transcript
-		newRequest: function(link, reward) {		
+		newRequest: function(link, reward, title, duration) {		
 			username = g_username;
 
 			// Saves the Video
 			var Request = Parse.Object.extend('Request');
 			var req = new Request();
-			req.save({'link': link, 'user': username, 'reward': reward, 'status': 'new'})
-				.then(function(results) {console.log('request has been saved')},
-					function(error) {console.log("Error in saving request!");}
+			req.save({'link': link, 
+                'user': username,
+                'reward': reward,
+                'status': 'new',
+                'title': title,
+                'duration': duration
+               }).then(function(results) {
+            console.log('request has been saved')
+          },
+					function(error) {
+            console.log("Error in saving request!");
+          }
 				);
 
 			// refresh requests on page
@@ -66,8 +75,8 @@ var parse = (function() {
 				for (var i = 0; i < reqResults.length; i++) {
 					var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 					var reward = reqResults[i].get('reward');
-				    $('#requests-container').append('<a class="request" href="transcribe.html"><img class="video-thumb" src=' + imgURL
-				     + '><div class="video-title">DESCRIPTION GOES HERE</div><div class="reward-amount">$' +
+				    $('#requests-container').append('<a class="request" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
+				     + '><div class="video-title">' + reqResults[i].get('title') + '</div><div class="reward-amount">$' +
 				     reward + '<span>REWARD FOR TRANSCRIBING</span></div></a>');
 				}
 			});
@@ -95,7 +104,7 @@ var parse = (function() {
 						if (reqResults[i].get('user') === result) {
 							var imgURL = yt.getYouTubeThumbnail(yt.parseID(reqResults[i].get('link')));
 							var reward = reqResults[i].get('reward');
-						   	$('#vid-history').append('<a class="request col-md-15" href="transcribe.html"><img class="video-thumb" src=' + imgURL
+						   	$('#vid-history').append('<a class="request col-md-15" href=transcribe.html?youtubeid='  + reqResults[i].get('link').split('=')[1] + '><img class="video-thumb" src=' + imgURL
 				     		+ '><div class="reward-amount">$' + reward + '<span> REWARD AMOUNT</span></div></a>');
 						}
 					}

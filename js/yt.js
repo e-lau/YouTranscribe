@@ -1,6 +1,17 @@
 var yt = (function() {
 
     return {
+        secformat: function(sec) {
+            var fm = [
+                Math.floor(sec/60) % 60, // Minutes
+                sec % 60 // Seconds
+            ];
+
+            return $.map(fm, function(v,i) {
+                return ((v < 10) ? '0' : '') +v;
+            }).join(':');
+        },
+      
         getDescription: function(url) {
             if (!url) return "Error: Invalid URL";
             else return "DESCRIPTION GOES HERE";
