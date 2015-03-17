@@ -57,8 +57,19 @@
     width: 100%;
 }
 
+#cancel-transcription {
+    width: 160;
+    padding: 10px;
+    outline: none;
+    border: none;
+    background-color: crimson;
+    border: 1px solid #72af34;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
 #submit-transcription {
-    width: 620px;
+    width: 500px;
     padding: 10px;
     outline: none;
     border: none;
