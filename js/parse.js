@@ -162,6 +162,19 @@ var parse = (function() {
 			});
 		},
 
+		loadInfo: function(link) {
+			var Request = Parse.Object.extend('Request');
+			var req = new Parse.Query(Request);
+			req.find().then(function(reqResults) {
+				for (var i = 0; i < reqResults.length; i++) {
+					if (reqResults[i].get('user') === g_username && reqResults[i].get('link') === link) {
+						$('#amount').html(reqResults[i].get('reward'));
+						return ;
+					}
+				}
+			});
+		},
+
 		getUserId: function() {
 			return g_username;
 		}
